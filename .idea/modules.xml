@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/styli.iml" filepath="$PROJECT_DIR$/styli.iml" />
+      <module fileurl="file://$PROJECT_DIR$/styli-segmentation/styli-segmentation.iml" filepath="$PROJECT_DIR$/styli-segmentation/styli-segmentation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/styli-style-transfer/styli-style-transfer.iml" filepath="$PROJECT_DIR$/styli-style-transfer/styli-style-transfer.iml" />
     </modules>
   </component>
 </project>
