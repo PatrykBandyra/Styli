@@ -5,9 +5,9 @@
       <module name="styli-android" target="17" />
       <module name="styli-android.main" target="17" />
       <module name="styli-android.test" target="17" />
-      <module name="styli-api" target="17" />
-      <module name="styli-api.main" target="17" />
-      <module name="styli-api.test" target="17" />
+      <module name="styli-ui" target="17" />
+      <module name="styli-ui.main" target="17" />
+      <module name="styli-ui.test" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
