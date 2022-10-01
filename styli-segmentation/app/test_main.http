@@ -1,0 +1,47 @@
+# Segmentation service endpoint tests
+
+### Health check
+GET http://127.0.0.1:8002/sgm/health
+Accept: application/json
+Content-Type: multipart/form-data
+
+### Segmentation with background image
+POST http://127.0.0.1:8002/sgm/segmentation
+Accept: application/json
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="image"; filename="original.png"
+Content-Type: image/png
+
+< ../resources/original.png
+--boundary
+Content-Disposition: form-data; name="bg_image"; filename="this_is_fine.jpg"
+Content-Type: image/jpeg
+
+< ../resources/this_is_fine.jpg
+--boundary--
+
+### Segmentation without background image but with background color
+POST http://127.0.0.1:8002/sgm/segmentation?bg_color=#00FF00
+Accept: application/json
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="image"; filename="original.png"
+Content-Type: image/png
+
+< ../resources/original.png
+--boundary--
+
+### Segmentation without background image and color
+POST http://127.0.0.1:8002/sgm/segmentation
+Accept: application/json
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="image"; filename="original.png"
+Content-Type: image/png
+
+< ../resources/original.png
+--boundary--
