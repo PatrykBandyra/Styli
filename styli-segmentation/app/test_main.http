@@ -1,12 +1,11 @@
 # Segmentation service endpoint tests
 
 ### Health check
-GET http://127.0.0.1:8002/sgm/health
+GET {{host}}:{{port}}{{base_url}}/health
 Accept: application/json
-Content-Type: multipart/form-data
 
 ### Segmentation with background image
-POST http://127.0.0.1:8002/sgm/segmentation
+POST {{host}}:{{port}}{{base_url}}/segmentation
 Accept: application/json
 Content-Type: multipart/form-data; boundary=boundary
 
@@ -23,7 +22,7 @@ Content-Type: image/jpeg
 --boundary--
 
 ### Segmentation without background image but with background color
-POST http://127.0.0.1:8002/sgm/segmentation?bg_color=#00FF00
+POST {{host}}:{{port}}{{base_url}}/segmentation?bg_color=#00FF00
 Accept: application/json
 Content-Type: multipart/form-data; boundary=boundary
 
@@ -35,7 +34,7 @@ Content-Type: image/png
 --boundary--
 
 ### Segmentation without background image and color
-POST http://127.0.0.1:8002/sgm/segmentation
+POST {{host}}:{{port}}{{base_url}}/segmentation
 Accept: application/json
 Content-Type: multipart/form-data; boundary=boundary
 
