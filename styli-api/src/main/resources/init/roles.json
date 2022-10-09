@@ -1,0 +1,10 @@
+[
+  {
+    "name": "admin",
+    "description": "All rights"
+  },
+  {
+    "name": "user",
+    "description": "Default role for newly created user"
+  }
+]

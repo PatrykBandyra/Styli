@@ -6,10 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/api/health")
+@RequestMapping("\${styli.rootUrl}/health")
 class HealthCheckController {
     @GetMapping
-    fun getHealthCheck(): ResponseEntity<String> {
-        return ResponseEntity.ok("[API]: Health check works")
+    fun getHealthCheck(): ResponseEntity<Map<String, String>> {
+        val response: Map<String, String> = mapOf("message" to "[API]: Health check works")
+        return ResponseEntity.ok(response)
     }
 }

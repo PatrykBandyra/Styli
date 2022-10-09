@@ -6,8 +6,14 @@ spring:
     password: root
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
     show-sql: true
 
 server:
   port: 8000
+
+styli:
+  rootUrl: "/api"
+  production: false
+  secretKey: "helloDarknessMyOldFriend"
+  tokenValidityInSecs: 100
