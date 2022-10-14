@@ -1,5 +1,6 @@
-package styli.api.security.service
+package styli.security.service
 
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.oauth2.jwt.JwtClaimsSet
@@ -11,6 +12,7 @@ import java.time.Instant
 @Service
 class TokenService(
     private val encoder: JwtEncoder,
+    @Value("\${styli.jwt.expirationInSeconds}") private val jwtExpirationInSeconds: Long,
 ) {
 
     fun generateToken(authentication: Authentication): String {
@@ -21,7 +23,7 @@ class TokenService(
         val claims: JwtClaimsSet = JwtClaimsSet.builder()
             .issuer("self")
             .issuedAt(now)
-            .expiresAt(now.plusSeconds(3600))
+            .expiresAt(now.plusSeconds(jwtExpirationInSeconds))
             .subject(authentication.name)
             .claim("scope", scope)
             .build()

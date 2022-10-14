@@ -1,4 +1,4 @@
-package styli.api.security.controller
+package styli.security.controller
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -10,19 +10,24 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import styli.api.security.dto.LoginRequest
-import styli.api.security.service.TokenService
+import styli.security.dto.request.LoginRequest
+import styli.security.dto.request.UserRegistrationRequest
+import styli.security.dto.response.UserRegistrationResponse
+import styli.security.service.ApplicationUserService
+import styli.security.service.TokenService
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("\${styli.rootUrl}/auth")
 class AuthController(
     private val tokenService: TokenService,
     private val authManager: AuthenticationManager,
+    private val applicationUserService: ApplicationUserService,
 ) {
 
     private val logger: Logger = LoggerFactory.getLogger(AuthController::class.java)
 
-    @PostMapping("/token")
+    @PostMapping("login")
     fun getToken(@RequestBody loginRequest: LoginRequest): ResponseEntity<String> {
         logger.info("Token requested for ${loginRequest.username}")
         val authentication: Authentication =
@@ -30,6 +35,19 @@ class AuthController(
         val token: String = tokenService.generateToken(authentication)
         logger.info("Token has been generated: $token")
         return ResponseEntity.ok(token)
+    }
+
+    @PostMapping("register")
+    fun registerUser(@Valid @RequestBody registrationRequest: UserRegistrationRequest): ResponseEntity<UserRegistrationResponse> {
+        val savedProfile = applicationUserService.registerUser(registrationRequest)
+        return ResponseEntity.ok(
+            UserRegistrationResponse(
+                savedProfile.user.username,
+                savedProfile.email,
+                savedProfile.name,
+                savedProfile.surname
+            )
+        )
     }
 
 }

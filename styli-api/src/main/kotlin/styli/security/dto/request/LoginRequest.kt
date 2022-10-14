@@ -1,4 +1,4 @@
-package styli.api.security.dto
+package styli.security.dto.request
 
 data class LoginRequest(
     var username: String,

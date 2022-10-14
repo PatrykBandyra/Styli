@@ -1,11 +1,8 @@
-package styli.api.security.config
+package styli.security.config
 
 import org.springframework.stereotype.Component
 import java.security.KeyPair
 import java.security.KeyPairGenerator
-
-
-
 
 @Component
 class KeyGeneratorUtils {

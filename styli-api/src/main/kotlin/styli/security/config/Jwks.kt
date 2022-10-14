@@ -1,4 +1,4 @@
-package styli.api.security.config
+package styli.security.config
 
 import com.nimbusds.jose.jwk.RSAKey
 import java.security.KeyPair

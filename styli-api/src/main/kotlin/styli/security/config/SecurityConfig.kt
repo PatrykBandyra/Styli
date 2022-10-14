@@ -1,4 +1,4 @@
-package styli.api.security.config
+package styli.security.config
 
 import com.nimbusds.jose.jwk.JWKSelector
 import com.nimbusds.jose.jwk.JWKSet
@@ -14,13 +14,13 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy.STATELESS
-import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetailsService
+import org.springframework.security.crypto.factory.PasswordEncoderFactories
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.oauth2.jwt.JwtDecoder
 import org.springframework.security.oauth2.jwt.JwtEncoder
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder
-import org.springframework.security.provisioning.InMemoryUserDetailsManager
 import org.springframework.security.web.SecurityFilterChain
 
 
@@ -35,14 +35,8 @@ class SecurityConfig {
     fun authManager(userDetailsService: UserDetailsService): AuthenticationManager {
         val authProvider = DaoAuthenticationProvider()
         authProvider.setUserDetailsService(userDetailsService)
+        authProvider.setPasswordEncoder(passwordEncoder())
         return ProviderManager(authProvider)
-    }
-
-    @Bean
-    fun users(): UserDetailsService {
-        return InMemoryUserDetailsManager(
-            User.withUsername("root").password("{noop}root").authorities("READ").build()
-        )
     }
 
     @Bean
@@ -51,7 +45,7 @@ class SecurityConfig {
             .csrf { csrf -> csrf.disable() }
             .authorizeRequests { auth ->
                 auth
-                    .mvcMatchers("/api/auth/token").permitAll()
+                    .mvcMatchers("/api/auth/*").permitAll()
                     .mvcMatchers("/api/health").permitAll()
                     .anyRequest().authenticated()
             }
@@ -77,5 +71,10 @@ class SecurityConfig {
     @Bean
     fun jwtDecoder(): JwtDecoder {
         return NimbusJwtDecoder.withPublicKey(rsaKey?.toRSAPublicKey()).build()
+    }
+
+    @Bean
+    fun passwordEncoder(): PasswordEncoder {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder()
     }
 }
