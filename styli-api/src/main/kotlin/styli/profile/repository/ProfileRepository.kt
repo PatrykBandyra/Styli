@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository
 import styli.profile.model.Profile
 
 @Repository
-interface ProfileRepository : JpaRepository<Profile, Int> {
+interface ProfileRepository : JpaRepository<Profile, Long> {
 
-    fun existsByEmail(email: String?): Boolean
+    fun findByUserUsername(username: String): Profile?
 }

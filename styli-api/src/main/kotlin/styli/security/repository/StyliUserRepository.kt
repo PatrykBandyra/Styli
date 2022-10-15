@@ -5,8 +5,7 @@ import org.springframework.stereotype.Repository
 import styli.security.model.StyliUser
 
 @Repository
-interface StyliUserRepository : JpaRepository<StyliUser, Int> {
+interface StyliUserRepository : JpaRepository<StyliUser, Long> {
 
     fun findStyliUserByUsername(username: String?): StyliUser?
-    fun existsByUsername(username: String?): Boolean
 }

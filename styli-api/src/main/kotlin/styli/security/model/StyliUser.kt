@@ -22,12 +22,12 @@ class StyliUser(
     val password: String,
 
     @ManyToMany(mappedBy = "users", fetch = EAGER)
-    val authorities: Set<StyliAuthority> = mutableSetOf(),
+    val authorities: MutableSet<StyliAuthority> = mutableSetOf(),
 
     @OneToOne(mappedBy = "user", fetch = LAZY)
     val profile: Profile? = null,
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    val id: Int? = null,
+    val id: Long? = null,
 )

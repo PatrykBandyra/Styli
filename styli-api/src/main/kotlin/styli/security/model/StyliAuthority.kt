@@ -24,9 +24,9 @@ class StyliAuthority(
         joinColumns = [JoinColumn(name = "styliAuthority_id")],
         inverseJoinColumns = [JoinColumn(name = "styliUser_id")]
     )
-    val users: Set<StyliUser> = mutableSetOf(),
+    val users: MutableSet<StyliUser> = mutableSetOf(),
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    val id: Int? = null,
+    val id: Long? = null,
 )

@@ -43,7 +43,7 @@ class ApplicationUserService(
             StyliUser(
                 registrationRequest.username,
                 passwordEncoder.encode(registrationRequest.password),
-                setOf(StyliAuthority("READ"))
+                mutableSetOf(StyliAuthority("READ"), StyliAuthority("CREATE"), StyliAuthority("DELETE"))
             )
         )
         return profileRepository.save(profile)

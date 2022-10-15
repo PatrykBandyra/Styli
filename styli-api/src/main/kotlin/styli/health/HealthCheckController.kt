@@ -14,7 +14,9 @@ import java.security.Principal
 @RequestMapping("\${styli.rootUrl}/health")
 class HealthCheckController {
 
-    private val logger: Logger = LoggerFactory.getLogger(HealthCheckController::class.java)
+    companion object {
+        private val logger: Logger = LoggerFactory.getLogger(HealthCheckController::class.java)
+    }
 
     @GetMapping
     fun getHealthCheck(): ResponseEntity<Map<String, String>> {

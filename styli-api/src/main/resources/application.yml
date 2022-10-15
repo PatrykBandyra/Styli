@@ -6,7 +6,7 @@ spring:
     password: root
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     show-sql: true
 
 server:
@@ -15,4 +15,4 @@ server:
 styli:
   rootUrl: "/api"
   jwt:
-    expirationInSeconds: 60
+    expirationInSeconds: 3600
