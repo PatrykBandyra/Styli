@@ -10,5 +10,5 @@ import styli.image.model.Image
 interface ImageRepository : JpaRepository<Image, Long> {
 
     fun findAllByProfileUserUsername(username: String, pageable: Pageable): Page<Image>
-    fun deleteByIdAndProfileUserUsername(imageId: Long, username: String)
+    fun deleteByIdAndProfileUserUsername(imageId: Long, username: String): Long
 }

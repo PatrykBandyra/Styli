@@ -1,10 +1,12 @@
 package styli.image.controller
 
 import org.springframework.data.domain.Page
+import org.springframework.http.HttpStatus.FORBIDDEN
 import org.springframework.http.MediaType.IMAGE_JPEG_VALUE
 import org.springframework.http.MediaType.IMAGE_PNG_VALUE
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
@@ -54,8 +56,11 @@ class ImageController(
 
     @DeleteMapping
     @PreAuthorize("hasAuthority('SCOPE_DELETE')")
-    fun deleteImage(@RequestParam imageId: Long, principal: Principal): ResponseEntity<in Nothing> {
-        imageRepository.deleteByIdAndProfileUserUsername(imageId, principal.name)
-        return ResponseEntity.ok().build()
+    @Transactional
+    fun deleteImage(@RequestParam id: Long, principal: Principal): ResponseEntity<in Nothing> {
+        return when (imageRepository.deleteByIdAndProfileUserUsername(id, principal.name)) {
+            0L -> ResponseEntity.status(FORBIDDEN).build()
+            else -> ResponseEntity.ok().build()
+        }
     }
 }
