@@ -16,3 +16,10 @@ styli:
   rootUrl: "/api"
   jwt:
     expirationInSeconds: 3600
+  effects:
+    - name: cartoonize
+      url: http://localhost:8001/st/cartoonization
+      healthUrl: http://localhost:8001/st/health
+    - name: background-swap
+      url: http://localhost:8002/sgm/segmentation
+      healthUrl: http://localhost:8002/sgm/health
