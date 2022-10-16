@@ -1,5 +1,12 @@
-2022-10-16 03:19:15,108: INFO: app.main: /health endpoint called
-2022-10-16 03:20:44,541: INFO: app.main: /health endpoint called
-2022-10-16 03:24:22,946: INFO: app.main: /health endpoint called
-2022-10-16 03:24:31,219: INFO: app.main: /health endpoint called
-2022-10-16 03:27:40,298: INFO: app.main: /health endpoint called
+2022-10-16 22:10:24,507: INFO: app.main: /cartoonize endpoint called
+2022-10-16 22:15:27,367: INFO: app.main: /cartoonize endpoint called
+2022-10-16 22:30:21,403: INFO: app.main: /cartoonize endpoint called
+2022-10-16 22:52:07,053: INFO: app.main: /health endpoint called
+2022-10-16 22:52:22,908: INFO: app.main: /health endpoint called
+2022-10-16 22:54:39,276: INFO: app.main: /cartoonize endpoint called
+2022-10-16 23:05:50,807: INFO: app.main: /health endpoint called
+2022-10-16 23:05:57,949: INFO: app.main: /cartoonize endpoint called
+2022-10-16 23:08:06,971: INFO: app.main: /cartoonize endpoint called
+2022-10-16 23:10:46,276: INFO: app.main: /health endpoint called
+2022-10-16 23:11:14,907: INFO: app.main: /cartoonize endpoint called
+2022-10-16 23:13:11,384: INFO: app.main: /cartoonize endpoint called

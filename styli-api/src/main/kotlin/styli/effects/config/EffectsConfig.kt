@@ -1,4 +1,4 @@
-package styli.effects
+package styli.effects.config
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding
