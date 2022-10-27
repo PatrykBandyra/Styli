@@ -1,0 +1,21 @@
+<section class="register">
+    <form [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()" class="register__form">
+        <label for="username" class="register__label">Username: </label>
+        <input id="username" type="text" formControlName="username" class="register__input">
+
+        <label for="password" class="register__label">Password: </label>
+        <input id="password" type="password" formControlName="password" class="register__input">
+
+        <label for="email" class="register__label">Email: </label>
+        <input id="email" type="email" formControlName="email" class="register__input">
+
+        <label for="name" class="register__label">Name: </label>
+        <input id="name" type="text" formControlName="name" class="register__input">
+
+        <label for="surname" class="register__label">Surname: </label>
+        <input id="surname" type="text" formControlName="surname" class="register__input">
+
+        <button [disabled]="!registerForm.valid" type="submit" class="register__btn">Register</button>
+    </form>
+</section>
+

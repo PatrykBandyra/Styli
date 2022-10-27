@@ -1,0 +1,17 @@
+.form-container {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    justify-items: center;
+
+    & .mat-card-title {
+        text-align: center;
+    }
+}
+
+.form {
+    display: grid;
+
+
+}

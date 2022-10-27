@@ -1,5 +1,4 @@
-2022-10-16 23:09:33,818: INFO: app.main: /segmentation endpoint called
-2022-10-16 23:10:34,252: INFO: app.main: /health endpoint called
-2022-10-16 23:10:51,231: INFO: app.main: /health endpoint called
-2022-10-16 23:14:53,028: INFO: app.main: /segmentation endpoint called
-2022-10-16 23:26:51,752: INFO: app.main: /segmentation endpoint called
+2022-10-17 18:37:11,082: INFO: app.main: /health endpoint called
+2022-10-17 18:37:51,151: INFO: app.main: /health endpoint called
+2022-10-17 18:40:04,863: INFO: app.main: /segmentation endpoint called
+2022-10-17 18:40:31,790: INFO: app.main: /segmentation endpoint called

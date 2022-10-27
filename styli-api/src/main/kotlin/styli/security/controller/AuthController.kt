@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import styli.security.dto.request.LoginRequest
 import styli.security.dto.request.UserRegistrationRequest
+import styli.security.dto.response.LoginResponse
 import styli.security.dto.response.UserRegistrationResponse
 import styli.security.service.ApplicationUserService
 import styli.security.service.TokenService
@@ -28,13 +29,13 @@ class AuthController(
     private val logger: Logger = LoggerFactory.getLogger(AuthController::class.java)
 
     @PostMapping("login")
-    fun getToken(@RequestBody loginRequest: LoginRequest): ResponseEntity<String> {
+    fun getToken(@RequestBody loginRequest: LoginRequest): ResponseEntity<LoginResponse> {
         logger.info("Token requested for ${loginRequest.username}")
         val authentication: Authentication =
             authManager.authenticate(UsernamePasswordAuthenticationToken(loginRequest.username, loginRequest.password))
-        val token: String = tokenService.generateToken(authentication)
-        logger.info("Token has been generated: $token")
-        return ResponseEntity.ok(token)
+        val loginResponse: LoginResponse = tokenService.generateToken(authentication)
+        logger.info("Token has been generated: ${loginResponse.token}")
+        return ResponseEntity.ok(loginResponse)
     }
 
     @PostMapping("register")
