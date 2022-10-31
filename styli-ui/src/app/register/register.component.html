@@ -1,21 +1,33 @@
-<section class="register">
-    <form [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()" class="register__form">
-        <label for="username" class="register__label">Username: </label>
-        <input id="username" type="text" formControlName="username" class="register__input">
-
-        <label for="password" class="register__label">Password: </label>
-        <input id="password" type="password" formControlName="password" class="register__input">
-
-        <label for="email" class="register__label">Email: </label>
-        <input id="email" type="email" formControlName="email" class="register__input">
-
-        <label for="name" class="register__label">Name: </label>
-        <input id="name" type="text" formControlName="name" class="register__input">
-
-        <label for="surname" class="register__label">Surname: </label>
-        <input id="surname" type="text" formControlName="surname" class="register__input">
-
-        <button [disabled]="!registerForm.valid" type="submit" class="register__btn">Register</button>
-    </form>
-</section>
-
+<div class="form-container">
+    <mat-card>
+        <mat-card-title>
+            Register
+        </mat-card-title>
+        <mat-card-content>
+            <form [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()" class="form">
+                <mat-error *ngIf="isRegisterError" >
+                    <p>Registration failed</p>
+                </mat-error>
+                <mat-form-field>
+                    <input id="username" type="text" matInput placeholder="Username" formControlName="username">
+                </mat-form-field>
+                <mat-form-field>
+                    <input id="password" type="password" matInput placeholder="Password" formControlName="password">
+                </mat-form-field>
+                <mat-form-field>
+                    <input id="email" type="email" matInput placeholder="Email" formControlName="email">
+                </mat-form-field>
+                <mat-form-field>
+                    <input id="name" type="text" matInput placeholder="Name" formControlName="name">
+                </mat-form-field>
+                <mat-form-field>
+                    <input id="surname" type="text" matInput placeholder="Surname" formControlName="surname">
+                </mat-form-field>
+                <button [disabled]="!registerForm.valid" type="submit" mat-button>Register</button>
+            </form>
+            <div>
+                <p>Have an account already? <a mat-button routerLink="/login">Log In</a></p>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

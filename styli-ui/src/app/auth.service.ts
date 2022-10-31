@@ -35,16 +35,12 @@ export class AuthService {
     }
 
     isLoggedIn(): boolean {
-        return DateTime.now().toUnixInteger() > AuthService.getExpiration();
+        return DateTime.now().toUnixInteger() < AuthService.getExpiration();
     }
 
     private static getExpiration(): number {
-        const expiresAt: string | null = localStorage.getItem('expire_at');
-        const expiresAtNum: number = Number(expiresAt);
-        if (Number.isNaN(expiresAtNum)) {
-            return 0;
-        }
-        return expiresAtNum;
+        const expiresAt: string | null = localStorage.getItem('expires_at');
+        return Number(expiresAt);
     }
 
     private static setSession(loginResponse: LoginResponse): void {

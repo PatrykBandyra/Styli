@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../auth.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-main',
@@ -9,26 +10,28 @@ import {AuthService} from "../auth.service";
 })
 export class MainComponent implements OnInit {
 
-    constructor(private http: HttpClient, private authService: AuthService) {
+    constructor(private http: HttpClient,
+                private router: Router,
+                private authService: AuthService) {
     }
 
     text: string = '';
-    isLoggedIn?: boolean
+    isLoggedIn?: boolean;
 
     ngOnInit(): void {
-        this.isLoggedIn = this.authService.isLoggedIn()
+        this.isLoggedIn = this.authService.isLoggedIn();
     }
 
-    onClick(): void {
-        this.http.get<HealthCheckDto>('/api/health').subscribe({
-            next: (response: HealthCheckDto) => {
-                this.text = response.message;
-            }
-        });
+    onLogInBtnClick() {
+        this.router.navigateByUrl('/login')
+            .then(
+                (_: boolean) => console.debug('Navigated to /login'),
+                (_: boolean) => console.error('Could not navigate to /login'));
     }
 
-}
-
-interface HealthCheckDto {
-    message: string
+    onLogOutBtnClick() {
+        console.log('Log out');
+        this.authService.logOut();
+        this.isLoggedIn = this.authService.isLoggedIn();
+    }
 }

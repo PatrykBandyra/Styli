@@ -1,10 +1,13 @@
 <div class="form-container">
     <mat-card>
         <mat-card-title>
-            Login
+            Log In
         </mat-card-title>
         <mat-card-content>
             <form [formGroup]="loginForm" (ngSubmit)="onLogInSubmit()" class="form">
+                <mat-error *ngIf="isLogInError">
+                    <p>Authentication failed</p>
+                </mat-error>
                 <mat-form-field>
                     <input id="username" type="text" matInput placeholder="Username" formControlName="username">
                 </mat-form-field>
@@ -13,6 +16,9 @@
                 </mat-form-field>
                 <button [disabled]="!loginForm.valid" type="submit" mat-button>Login</button>
             </form>
+            <div>
+                <p>Don't have an account yet? <a mat-button routerLink="/register">Register</a></p>
+            </div>
         </mat-card-content>
     </mat-card>
 </div>

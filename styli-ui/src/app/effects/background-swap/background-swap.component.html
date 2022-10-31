@@ -1,0 +1,13 @@
+<div class="container">
+    <button class="btn" mat-button (click)="onBackgroundSwapBtnClick()"
+            [disabled]="file === null || file === undefined">Background Swap
+    </button>
+    <label class="color__label" for="back-color">
+        Select color
+    </label>
+    <input id="back-color" class="color__input" [(colorPicker)]="backColor" [style.background]="backColor"/>
+    <label class="image__label" for="back-image">
+        Select background image
+    </label>
+    <input id="back-image" class="image__input" type="file" accept="image/*" (change)="selectBackgroundFile($event)"/>
+</div>

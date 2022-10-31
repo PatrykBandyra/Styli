@@ -1,0 +1,27 @@
+<mat-card class="editor">
+    <div class="editor__preview">
+        <img *ngIf="imageBase64; else noImagePrompt" class="editor__preview--img" [src]="imageBase64" alt="Image preview">
+        <ng-template #noImagePrompt>
+            <p>Select an image</p>
+        </ng-template>
+    </div>
+    <div class="editor__effects">
+        <mat-form-field appearance="fill">
+            <mat-label>Effect</mat-label>
+            <mat-select (selectionChange)="onEffectChanged($event)">
+                <mat-option *ngFor="let effect of effects" [value]="effect">{{effect}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="editor__effects-toolbar">
+        <app-cartoonize *ngIf="selectedEffect===EffectType.CARTOONIZE" [file]="file" (effectAppliedEvent)="onEffectApplied($event)"></app-cartoonize>
+        <app-background-swap *ngIf="selectedEffect===EffectType.BACKGROUND_SWAP" [file]="file" (effectAppliedEvent)="onEffectApplied($event)"></app-background-swap>
+    </div>
+    <div class="editor__toolbar">
+        <label>
+            Select main image
+            <input type="file" accept="image/*" (change)="selectFile($event)"/>
+        </label>
+        <button mat-button>Save</button>
+    </div>
+</mat-card>

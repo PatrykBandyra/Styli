@@ -1,4 +1,10 @@
 .form-container {
+    width: auto;
+    height: 100vh;
+    margin: auto;
+
+    background-color: var(--color-primary);
+
     display: grid;
     justify-content: center;
     align-content: center;
@@ -12,6 +18,5 @@
 
 .form {
     display: grid;
-
-
+    justify-items: center;
 }

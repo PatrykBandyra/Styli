@@ -45,7 +45,8 @@ class SecurityConfig {
             .csrf { csrf -> csrf.disable() }
             .authorizeRequests { auth ->
                 auth
-                    .mvcMatchers("/api/auth/*").permitAll()
+                    .mvcMatchers("/api/auth/login").permitAll()
+                    .mvcMatchers("/api/auth/register").permitAll()
                     .mvcMatchers("/api/health").permitAll()
                     .anyRequest().authenticated()
             }

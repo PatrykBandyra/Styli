@@ -1,6 +1,30 @@
-<!--<p>Main page</p>-->
-<!--<button (click)="onClick()">Click for health check</button>-->
-<!--<p>{{text}}</p>-->
+<header>
+    <mat-toolbar class="toolbar">
+        <button *ngIf="isLoggedIn" mat-icon-button>
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span>Styli</span>
+        <span class="toolbar__spacer"></span>
+        <button *ngIf="!isLoggedIn; else logout" mat-icon-button (click)="onLogInBtnClick()">
+            <mat-icon>login</mat-icon>
+        </button>
+        <ng-template #logout>
+            <button mat-icon-button (click)="onLogOutBtnClick()">
+                <mat-icon>logout</mat-icon>
+            </button>
+        </ng-template>
+    </mat-toolbar>
+</header>
 
-<app-login *ngIf="!isLoggedIn"></app-login>
-<!--<app-register></app-register>-->
+<main class="main">
+    <div *ngIf="isLoggedIn; else mainNotLoggedIn">
+        <app-editor></app-editor>
+        <app-gallery></app-gallery>
+    </div>
+    <ng-template #mainNotLoggedIn>
+        <div>
+            You need to log in
+        </div>
+    </ng-template>
+</main>
+

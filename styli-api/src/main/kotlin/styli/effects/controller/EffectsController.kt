@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestPart
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.multipart.MultipartFile
 import styli.effects.dto.request.EffectRequest
+import styli.effects.dto.response.EffectResponse
 import styli.effects.service.EffectsService
 
 @RestController
@@ -26,7 +27,7 @@ class EffectsController(
         @RequestPart effectRequest: EffectRequest,
         @RequestPart image: MultipartFile,
         @RequestPart image2: MultipartFile? = null,
-    ): ResponseEntity<ByteArray?> {
-        return ResponseEntity.ok(effectsService.applyEffectToImage(effectRequest, image, image2))
+    ): ResponseEntity<EffectResponse> {
+        return ResponseEntity.ok(EffectResponse(effectsService.applyEffectToImage(effectRequest, image, image2)))
     }
 }
