@@ -1,5 +1,7 @@
 FROM mysql:latest
 
+RUN chown -R mysql:root /var/lib/mysql/
+
 ARG MYSQL_DATABASE
 ARG MYSQL_USER
 ARG MYSQL_PASSWORD
