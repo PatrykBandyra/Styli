@@ -1,6 +1,6 @@
 version: '3.3'
 services:
-  mysql:
+  database:
     build:
       context: /home/patryk/styli/styli/db
       args:
