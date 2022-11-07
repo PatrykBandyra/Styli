@@ -15,3 +15,9 @@ services:
       context: styli-style-transfer
     ports:
       - "${STYLE_TRANSFER_PORT}:80"
+  segmentation:
+    container_name: segmentation
+    build:
+      context: styli-segmentation
+    ports:
+      - "${SEGMENTATION_PORT}:80"
