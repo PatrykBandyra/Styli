@@ -3,7 +3,7 @@ services:
   db:
     container_name: mysql-db
     build:
-      context: /home/patryk/styli/styli/db
+      context: /home/patryk/styli/db
       args:
         - MYSQL_DATABASE=${MYSQL_DATABASE}
         - MYSQL_USER=${MYSQL_USER}
