@@ -13,3 +13,5 @@ services:
     container_name: style-transfer
     build:
       context: styli-style-transfer
+    ports:
+      - "${STYLE_TRANSFER_PORT}:80"
