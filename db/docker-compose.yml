@@ -1,6 +1,7 @@
 version: '3.3'
 services:
-  database:
+  db:
+    container_name: mysql-db
     build:
       context: /home/patryk/styli/styli/db
       args:
