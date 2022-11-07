@@ -9,3 +9,7 @@ services:
         - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     ports:
       - "${MYSQL_PORT}:3306"
+  style-transfer:
+    container_name: style-transfer
+    build:
+      context: styli-style-transfer
