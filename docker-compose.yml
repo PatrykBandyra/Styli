@@ -3,7 +3,7 @@ services:
   db:
     container_name: mysql-db
     build:
-      context: db
+      context: /home/patryk/styli/db
       args:
         - MYSQL_DATABASE=${MYSQL_DATABASE}
         - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
