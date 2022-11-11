@@ -3,7 +3,7 @@ COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
 RUN gradle build
 
-FROM openjdk:17-jre-slim
+FROM openjdk:17-jdk-slim
 EXPOSE 8000
 COPY --from=build /home/gradle/src/build/libs/styli-api-0.0.1-SNAPSHOT.jar /app/
 RUN bash -c 'touch /app/styli-api-0.0.1-SNAPSHOT.jar'
