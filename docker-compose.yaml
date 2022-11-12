@@ -11,6 +11,8 @@ services:
     container_name: api
     depends_on:
       - db
+    links:
+      - db:db
     restart: on-failure
     build:
       context: styli-api
