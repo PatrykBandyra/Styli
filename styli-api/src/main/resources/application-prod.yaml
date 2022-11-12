@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: "jdbc:mysql://db:3000/styli?autoReconnect=true&useSSL=false&createDatabaseIfNotExist=true"
+    url: "jdbc:mysql://db:3000/styli?autoReconnect=true&useSSL=false"
     username: root
     password: root
   jpa:
