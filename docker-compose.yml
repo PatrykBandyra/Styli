@@ -18,6 +18,8 @@ services:
     container_name: api
     depends_on:
       - db
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
 #    env_file: .env
     restart: on-failure
     build:
