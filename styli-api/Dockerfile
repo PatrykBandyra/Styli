@@ -4,7 +4,7 @@ ENV SPRING_PROFILES_ACTIVE="prod"
 
 COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
-RUN gradle build --scan
+RUN gradle build
 
 FROM openjdk:17-jdk-slim
 EXPOSE 8000

@@ -6,11 +6,14 @@ services:
     restart: unless-stopped
     build:
       context: db
-      args:
-        - MYSQL_DATABASE=${MYSQL_DATABASE}
-        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+#      args:
+#        - MYSQL_DATABASE=${MYSQL_DATABASE}
+#        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+#        - MYSQL_DATABASE=styli
+#        - MYSQL_ROOT_PASSWORD=root
     ports:
-      - "${MYSQL_HOST_PORT}:${MYSQL_CONTAINER_PORT}"
+#      - "${MYSQL_HOST_PORT}:${MYSQL_CONTAINER_PORT}"
+      - "3306:3306"
   api:
     container_name: api
     depends_on:
@@ -20,18 +23,21 @@ services:
     build:
       context: styli-api
     ports:
-      - "${API_HOST_PORT}:${API_CONTAINER_PORT}"
+#      - "${API_HOST_PORT}:${API_CONTAINER_PORT}"
+      - "8000:8000"
   style-transfer:
     container_name: style-transfer
     env_file: .env
     build:
       context: styli-style-transfer
     ports:
-      - "${STYLE_TRANSFER_HOST_PORT}:${STYLE_TRANSFER_CONTAINER_PORT}"
+#      - "${STYLE_TRANSFER_HOST_PORT}:${STYLE_TRANSFER_CONTAINER_PORT}"
+      - "8001:80"
   segmentation:
     container_name: segmentation
     env_file: .env
     build:
       context: styli-segmentation
     ports:
-      - "${SEGMENTATION_HOST_PORT}:${SEGMENTATION_CONTAINER_PORT}"
+#      - "${SEGMENTATION_HOST_PORT}:${SEGMENTATION_CONTAINER_PORT}"
+      - "8002:80"
