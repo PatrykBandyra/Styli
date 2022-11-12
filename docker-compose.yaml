@@ -1,21 +1,21 @@
 version: '3.8'
 services:
-  db:
-    container_name: db
-    restart: unless-stopped
-    build:
-      context: db
-    ports:
-      - "3000:3306"
-#  api:
-#    container_name: api
-#    depends_on:
-#      - db
-#    restart: on-failure
+#  db:
+#    container_name: db
+#    restart: unless-stopped
 #    build:
-#      context: styli-api
+#      context: db
 #    ports:
-#      - "8000:8000"
+#      - "3000:3306"
+  api:
+    container_name: api
+    depends_on:
+      - db
+    restart: on-failure
+    build:
+      context: styli-api
+    ports:
+      - "8000:8000"
 #  style-transfer:
 #    container_name: style-transfer
 #    build:
