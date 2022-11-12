@@ -21,14 +21,6 @@ services:
       context: styli-api
     ports:
       - "${API_HOST_PORT}:${API_CONTAINER_PORT}"
-    environment:
-      SPRING_APPLICATION_JSON: '{
-        "spring.datasource.url"  : "jdbc:mysql://db:$MYSQL_HOST_PORT/$MYSQL_DATABASE?autoReconnect=true&useSSL=false",
-        "spring.datasource.username" : "$MYSQL_USER",
-        "spring.datasource.password" : "$MYSQL_ROOT_PASSWORD",
-        "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
-        "spring.jpa.hibernate.ddl-auto" : "create-drop"
-      }'
   style-transfer:
     container_name: styli-style-transfer
     env_file: .env
