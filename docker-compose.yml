@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   db:
-    container_name: styli-db
+    container_name: db
     env_file: .env
     restart: unless-stopped
     build:
@@ -12,7 +12,7 @@ services:
     ports:
       - "${MYSQL_HOST_PORT}:${MYSQL_CONTAINER_PORT}"
   api:
-    container_name: styli-api
+    container_name: api
     depends_on:
       - db
     env_file: .env
@@ -22,14 +22,14 @@ services:
     ports:
       - "${API_HOST_PORT}:${API_CONTAINER_PORT}"
   style-transfer:
-    container_name: styli-style-transfer
+    container_name: style-transfer
     env_file: .env
     build:
       context: styli-style-transfer
     ports:
       - "${STYLE_TRANSFER_HOST_PORT}:${STYLE_TRANSFER_CONTAINER_PORT}"
   segmentation:
-    container_name: styli-segmentation
+    container_name: segmentation
     env_file: .env
     build:
       context: styli-segmentation
