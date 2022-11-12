@@ -9,8 +9,8 @@ services:
 #      - "3000:3306"
   api:
     container_name: api
-    depends_on:
-      - db
+#    depends_on:
+#      - db
     restart: on-failure
     build:
       context: styli-api
