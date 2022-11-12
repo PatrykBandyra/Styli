@@ -2,7 +2,7 @@ version: '3.8'
 services:
   db:
     container_name: db
-    env_file: .env
+#    env_file: .env
     restart: unless-stopped
     build:
       context: db
@@ -13,12 +13,12 @@ services:
 #        - MYSQL_ROOT_PASSWORD=root
     ports:
 #      - "${MYSQL_HOST_PORT}:${MYSQL_CONTAINER_PORT}"
-      - "3306:3306"
+      - "3000:3306"
   api:
     container_name: api
     depends_on:
       - db
-    env_file: .env
+#    env_file: .env
     restart: on-failure
     build:
       context: styli-api
@@ -27,7 +27,7 @@ services:
       - "8000:8000"
   style-transfer:
     container_name: style-transfer
-    env_file: .env
+#    env_file: .env
     build:
       context: styli-style-transfer
     ports:
@@ -35,7 +35,7 @@ services:
       - "8001:80"
   segmentation:
     container_name: segmentation
-    env_file: .env
+#    env_file: .env
     build:
       context: styli-segmentation
     ports:
