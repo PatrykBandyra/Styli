@@ -17,6 +17,13 @@ services:
       context: styli-api
     ports:
       - "${API_HOST_PORT}:${API_CONTAINER_PORT}"
+  ui:
+    container_name: ui
+    restart: on-failure
+    build:
+      context: styli-ui
+    ports:
+      - "${UI_HOST_PORT}:${UI_CONTAINER_PORT}"
   style-transfer:
     container_name: style-transfer
     restart: on-failure
