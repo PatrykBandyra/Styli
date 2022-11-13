@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: "jdbc:mysql://db:3000/styli?autoReconnect=true&useSSL=false"
-    username: root
-    password: root
+    url: "jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}?autoReconnect=true&allowPublicKeyRetrieval=true&useSSL=false"
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -19,8 +19,8 @@ styli:
     expirationInSeconds: 3600
   effects:
     - name: cartoonize
-      url: style-transfer/st/cartoonization
-      healthUrl: style-transfer/st/health
+      url: ${STYLE_TRANSFER_HOST}:${STYLE_TRANSFER_PORT}/st/cartoonization
+      healthUrl: ${STYLE_TRANSFER_HOST}:${STYLE_TRANSFER_PORT}/st/health
     - name: background-swap
-      url: segmentation/sgm/segmentation
-      healthUrl: segmentation/sgm/health
+      url: ${SEGMENTATION_HOST}:${SEGMENTATION_PORT}/sgm/segmentation
+      healthUrl: ${SEGMENTATION_HOST}:${SEGMENTATION_PORT}/sgm/health

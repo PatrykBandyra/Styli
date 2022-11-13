@@ -2,29 +2,28 @@ version: '3.8'
 services:
   db:
     container_name: db
+    image: "mysql:latest"
     restart: unless-stopped
-    build:
-      context: db
-    ports:
-      - "3000:3306"
+    env_file:
+      - db.env
   api:
     container_name: api
     depends_on:
       - db
     restart: on-failure
+    env_file:
+      - api.env
     build:
       context: styli-api
     ports:
-      - "8000:8000"
+      - "${API_HOST_PORT}:${API_CONTAINER_PORT}"
   style-transfer:
     container_name: style-transfer
+    restart: on-failure
     build:
       context: styli-style-transfer
-    ports:
-      - "8001:80"
   segmentation:
     container_name: segmentation
+    restart: on-failure
     build:
       context: styli-segmentation
-    ports:
-      - "8002:80"

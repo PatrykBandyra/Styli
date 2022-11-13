@@ -48,6 +48,7 @@ class SecurityConfig {
                     .mvcMatchers("/api/auth/login").permitAll()
                     .mvcMatchers("/api/auth/register").permitAll()
                     .mvcMatchers("/api/health").permitAll()
+                    .mvcMatchers("/api/effect").permitAll()
                     .anyRequest().authenticated()
             }
             .sessionManagement { session -> session.sessionCreationPolicy(STATELESS) }
