@@ -3,14 +3,14 @@ services:
   db:
     container_name: db
     image: "mysql:latest"
-    restart: unless-stopped
+    restart: always
     env_file:
       - db.env
   api:
     container_name: api
     depends_on:
       - db
-    restart: on-failure
+    restart: always
     env_file:
       - api.env
     build:
@@ -19,18 +19,20 @@ services:
       - "${API_HOST_PORT}:${API_CONTAINER_PORT}"
   ui:
     container_name: ui
-    restart: on-failure
+    depends_on:
+      - api
+    restart: always
     build:
       context: styli-ui
     ports:
       - "${UI_HOST_PORT}:${UI_CONTAINER_PORT}"
   style-transfer:
     container_name: style-transfer
-    restart: on-failure
+    restart: always
     build:
       context: styli-style-transfer
   segmentation:
     container_name: segmentation
-    restart: on-failure
+    restart: always
     build:
       context: styli-segmentation
