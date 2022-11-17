@@ -22,8 +22,8 @@ logger.addHandler(file_handler)
 class Cartoonizer:
     def __init__(self, weights_dir, gpu):
         if not os.path.exists(weights_dir):
-            logger.error("Cartoonizer initialization failed. Weights Directory not found")
-            raise FileNotFoundError("Cartoonizer initialization failed. Weights Directory not found")
+            logger.error(f'Cartoonizer initialization failed. Weights Directory not found: {weights_dir}')
+            raise FileNotFoundError('Cartoonizer initialization failed. Weights Directory not found')
         self.load_model(weights_dir, gpu)
 
     @staticmethod
