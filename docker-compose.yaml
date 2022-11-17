@@ -29,6 +29,8 @@ services:
   style-transfer:
     container_name: style-transfer
     restart: always
+    env_file:
+      - style-transfer.env
     build:
       context: styli-style-transfer
   segmentation:

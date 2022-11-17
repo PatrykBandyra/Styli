@@ -37,7 +37,7 @@ async def cartoonize(image: UploadFile = File(...)) -> StreamingResponse:
     if image.content_type not in ['image/jpeg', 'image/png']:
         raise HTTPException(400, detail='Invalid file type')
 
-    cartoonizer = Cartoonizer(os.path.abspath('saved_models'), 'cpu')
+    cartoonizer = Cartoonizer(os.path.abspath(os.environ.get('WEIGHTS_DIR', 'saved_models')), 'cpu')
     img = cv2.imdecode(np.frombuffer(image.file.read(), np.uint8), 1)
     cartoon_img = cartoonizer.infer(img)
     cartoon_img_rgb = cv2.cvtColor(cartoon_img, cv2.COLOR_BGR2RGB)
