@@ -7,7 +7,7 @@
     android:background="@drawable/gradient_background"
     tools:context=".activities.SplashActivity">
 
-    <com.example.triphub.utils.TextViewNoClipping
+    <styli.android.utils.TextViewNoClipping
         android:id="@+id/tvAppName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
