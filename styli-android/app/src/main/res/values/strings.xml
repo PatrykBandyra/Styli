@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">styli-android</string>
+    <string name="app_name">Styli</string>
+
+    <!--  Base Activity  -->
+    <string name="rationale_message">It look like you have turned off permission required for this feature. It can be enabled under the Applications Settings.</string>
+    <string name="rationale_positive_button">GO TO SETTINGS</string>
+    <string name="cancel">Cancel</string>
+    <string name="please_wait">Please wait&#8230;</string>
+    <string name="please_click_back_again_to_exit">Please click back again to exit</string>
+    <!--  !Base Activity  -->
+
 </resources>
