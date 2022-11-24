@@ -3,6 +3,7 @@ package styli.android.activities
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -11,13 +12,21 @@ import styli.android.api.HttpClient
 import styli.android.api.dto.auth.RegisterForm
 import styli.android.databinding.ActivitySignUpBinding
 import styli.android.global.Constants
+import styli.android.utils.Validators.Companion.isEmailValid
+import styli.android.utils.Validators.Companion.isNameValid
+import styli.android.utils.Validators.Companion.isPasswordValid
+import styli.android.utils.Validators.Companion.isSurnameValid
+import styli.android.utils.Validators.Companion.isUsernameValid
 import java.io.IOException
 
 class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setUpActionBarForReturnAction(
+            binding.toolbarSignUpActivity,
+            icon = R.drawable.back_arrow_black
+        )
         binding.btnSignUp.setOnClickListener {
             registerUser()
         }
@@ -55,6 +64,9 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
                     )
                     startActivity(loginIntent)
                     finish()
+                } else {
+                    hideProgressDialog()
+                    showErrorSnackBar(R.string.registration_unsuccessful)
                 }
             }
         }
@@ -69,27 +81,27 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
         password2: String
     ): Boolean {
         return when {
-            username.isEmpty() -> {
+            !username.isUsernameValid() -> {
                 showErrorSnackBar(R.string.sign_up_username_error)
                 false
             }
-            email.isEmpty() -> {
+            !email.isEmailValid() -> {
                 showErrorSnackBar(R.string.sign_up_email_error)
                 false
             }
-            name.isEmpty() -> {
+            !name.isNameValid() -> {
                 showErrorSnackBar(R.string.sign_up_name_error)
                 false
             }
-            surname.isEmpty() -> {
+            !surname.isSurnameValid() -> {
                 showErrorSnackBar(R.string.sign_up_surname_error)
                 false
             }
-            password1.isEmpty() -> {
+            !password1.isPasswordValid() -> {
                 showErrorSnackBar(R.string.sign_up_password1_error)
                 false
             }
-            password2.isEmpty() -> {
+            !password2.isPasswordValid() -> {
                 showErrorSnackBar(R.string.sign_up_password2_error)
                 false
             }

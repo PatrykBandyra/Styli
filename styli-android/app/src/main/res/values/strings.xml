@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Styli</string>
+    <string name="unexpected_http_response">Unexpected http response</string>
+    <string name="check_your_internet_connection">Check your Internet connection</string>
 
     <!--  Base Activity  -->
     <string name="rationale_message">It look like you have turned off permission required for this feature. It can be enabled under the Applications Settings.</string>
@@ -22,15 +24,38 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="repeat_password">Repeat Password</string>
-    <string name="sign_up_username_error">Please enter a username</string>
-    <string name="sign_up_name_error">Please enter a name</string>
-    <string name="sign_up_surname_error">Please enter a surname</string>
-    <string name="sign_up_email_error">Please enter an email</string>
-    <string name="sign_up_password1_error">Please enter a password</string>
+    <string name="sign_up_username_error">Username cannot be blank</string>
+    <string name="sign_up_name_error">Name cannot be blank</string>
+    <string name="sign_up_surname_error">Surname cannot be blank</string>
+    <string name="sign_up_email_error">Email invalid</string>
+    <string name="sign_up_password1_error">Password cannot be blank and must be between 8 and 24 chars</string>
     <string name="sign_up_password2_error">Please repeat the password</string>
     <string name="sign_up_passwords_different_error">Entered passwords are different</string>
     <string name="sign_up_success">Registration success</string>
     <string name="sign_up_name">Name</string>
     <string name="sign_up_surname">Surname</string>
+    <string name="registration_unsuccessful">Registration unsuccessful</string>
     <!--  !SignUp Screen  -->
+    <!--  SignIn Screen  -->
+    <string name="sign_ip_title">SIGN IN</string>
+    <string name="sign_in_secondary_text">Enter your username and password to log in</string>
+    <string name="sign_in_username_error">Username cannot be blank</string>
+    <string name="sign_in_password_error">Password cannot be blank and must be between 8 and 24 chars</string>
+    <string name="sign_in_error">Invalid username or password</string>
+    <string name="failed_to_load_user_data">Failed to load user data</string>
+    <string name="image_content_description">image</string>
+    <string name="nav_my_profile">My Profile</string>
+    <string name="nav_sign_out">Sign Out</string>
+    <string name="load_user_data_error">Could not load user data</string>
+    <!--  !SignIn Screen  -->
+    <!--  Main Screen  -->
+    <string name="add_trip">Add Trip</string>
+    <string name="menu">Menu</string>
+    <string name="editor">Editor</string>
+    <string name="gallery">Gallery</string>
+    <string name="image">Image</string>
+    <string name="effect">Effect</string>
+    <string name="select">Select</string>
+    <string name="apply">Apply</string>
+    <!--  !Main Screen  -->
 </resources>

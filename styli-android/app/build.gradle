@@ -57,4 +57,7 @@ dependencies {
     // Coroutine Lifecycle Scopes
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
+
+    // Color picker
+    implementation 'com.github.yukuku:ambilwarna:2.0.1'
 }

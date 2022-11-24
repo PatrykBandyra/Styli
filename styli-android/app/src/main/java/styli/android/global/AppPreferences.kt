@@ -24,6 +24,12 @@ object AppPreferences {
         get() = Key.EXPIRES_AT.getInt()
         set(value) = Key.EXPIRES_AT.setInt(value)
 
+    fun signOut() {
+        jwt = null
+        username = null
+        expiresAt = null
+    }
+
     private enum class Key {
         JWT, EXPIRES_AT, USERNAME;
 
