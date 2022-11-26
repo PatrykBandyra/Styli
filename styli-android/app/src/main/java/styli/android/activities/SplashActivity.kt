@@ -17,9 +17,10 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
         Handler(Looper.getMainLooper()).postDelayed(
             {
-                if (isUserLoggedIn()) {
+                if (AppPreferences.isUserLoggedIn()) {
                     startActivity(Intent(this@SplashActivity, MainActivity::class.java))
                 } else {
+                    AppPreferences.signOut()
                     startActivity(Intent(this@SplashActivity, IntroActivity::class.java))
                 }
                 finish()
@@ -30,12 +31,5 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
     override fun getViewBinding() = ActivitySplashBinding.inflate(layoutInflater)
 
-    companion object {
-        private fun isUserLoggedIn(): Boolean {
-            return AppPreferences.jwt != null &&
-                    AppPreferences.username != null &&
-                    AppPreferences.expiresAt != null &&
-                    AppPreferences.expiresAt!! > (System.currentTimeMillis() / 1_000)
-        }
-    }
+
 }

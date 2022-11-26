@@ -60,4 +60,11 @@ dependencies {
 
     // Color picker
     implementation 'com.github.yukuku:ambilwarna:2.0.1'
+
+    // Glide - images
+    implementation 'com.github.bumptech.glide:glide:4.13.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
+
+    // Dexter - permissions
+    implementation 'com.karumi:dexter:6.2.3'
 }

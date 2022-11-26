@@ -1,5 +1,6 @@
 package styli.android.activities
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.ActivityNotFoundException
@@ -14,6 +15,7 @@ import android.view.inputmethod.InputMethodManager
 import android.webkit.MimeTypeMap
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -22,8 +24,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewbinding.ViewBinding
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import styli.android.R
+import java.io.IOException
 
 abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {
 

@@ -46,7 +46,7 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
             showProgressDialog()
             lifecycleScope.launch {
                 val response = try {
-                    HttpClient.api.register(RegisterForm(username, email, password1, name, surname))
+                    HttpClient.api?.register(RegisterForm(username, email, password1, name, surname))
                 } catch (e: IOException) {
                     Log.e(TAG, "IOException, possible lack of Internet connection. ${e.message}")
                     hideProgressDialog()
@@ -56,7 +56,7 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
                     hideProgressDialog()
                     return@launch
                 }
-                if (response.isSuccessful && response.body() != null) {
+                if (response?.isSuccessful == true && response.body() != null) {
                     val loginIntent = Intent(this@SignUpActivity, SignInActivity::class.java)
                     loginIntent.putExtra(
                         Constants.Activity.REGISTRATION_SUCCESS,

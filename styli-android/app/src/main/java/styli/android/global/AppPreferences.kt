@@ -34,12 +34,22 @@ object AppPreferences {
         JWT, EXPIRES_AT, USERNAME;
 
         fun getString(): String? = if (exists()) sharedPreferences.getString(name, "") else null
-        fun setString(value: String?) = value?.let { sharedPreferences.edit { putString(name, value) } } ?: remove()
+        fun setString(value: String?) =
+            value?.let { sharedPreferences.edit { putString(name, value) } } ?: remove()
 
         fun getInt(): Int? = if (exists()) sharedPreferences.getInt(name, 0) else null
-        fun setInt(value: Int?) = value?.let { sharedPreferences.edit { putInt(name, value) } } ?: remove()
+        fun setInt(value: Int?) =
+            value?.let { sharedPreferences.edit { putInt(name, value) } } ?: remove()
 
         fun exists(): Boolean = sharedPreferences.contains(name)
         fun remove() = sharedPreferences.edit { remove(name) }
+    }
+
+    fun isUserLoggedIn(): Boolean {
+        return jwt != null && username != null && expiresAt != null && expiresAt!! > (System.currentTimeMillis() / 1_000)
+    }
+
+    fun isUserLoggedOut(): Boolean {
+        return jwt == null && username == null && expiresAt == null
     }
 }

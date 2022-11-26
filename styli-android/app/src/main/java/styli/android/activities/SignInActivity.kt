@@ -41,7 +41,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>() {
             showProgressDialog()
             lifecycleScope.launch {
                 val response = try {
-                    HttpClient.api.login(LoginForm(username, password))
+                    HttpClient.api?.login(LoginForm(username, password))
                 } catch (e: IOException) {
                     Log.e(TAG, "IOException, possible lack of Internet connection. ${e.message}")
                     hideProgressDialog()
@@ -53,7 +53,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>() {
                     showErrorSnackBar(R.string.unexpected_http_response)
                     return@launch
                 }
-                if (response.isSuccessful && response.body() != null) {
+                if (response?.isSuccessful == true && response.body() != null) {
                     AppPreferences.username = username
                     AppPreferences.jwt = response.body()!!.token
                     AppPreferences.expiresAt = response.body()!!.expiresAt
@@ -62,6 +62,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>() {
                 } else {
                     showErrorSnackBar(R.string.sign_in_error)
                 }
+                hideProgressDialog()
             }
         }
     }
