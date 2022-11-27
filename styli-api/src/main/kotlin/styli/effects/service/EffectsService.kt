@@ -68,7 +68,8 @@ class EffectsService(
                 .block()
         } catch (_: NoSuchElementException) {
             throw InvalidEffectNameException("Effect with name ${effectRequest.effectName} does not exist")
-        } catch (_: WebClientRequestException) {
+        } catch (e: WebClientRequestException) {
+            logger.error(e.message)
             throw EffectServiceDownException("Service applying effect ${effectRequest.effectName} is down")
         }
     }

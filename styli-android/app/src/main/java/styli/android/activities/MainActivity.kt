@@ -3,6 +3,7 @@ package styli.android.activities
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
@@ -11,6 +12,7 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.webkit.MimeTypeMap
 import android.widget.ArrayAdapter
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -24,17 +26,21 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.internal.toHexString
 import retrofit2.HttpException
 import styli.android.R
 import styli.android.api.HttpClient
+import styli.android.api.dto.effect.EffectParam
+import styli.android.api.dto.effect.EffectRequest
 import styli.android.databinding.ActivityMainBinding
 import styli.android.databinding.NavViewHeaderMenuBinding
 import styli.android.global.AppPreferences
 import styli.android.global.Constants
 import yuku.ambilwarna.AmbilWarnaDialog
 import yuku.ambilwarna.AmbilWarnaDialog.OnAmbilWarnaListener
-import java.io.IOException
+import java.io.*
 
 class MainActivity : BaseActivity<ActivityMainBinding>(),
     NavigationView.OnNavigationItemSelectedListener {
@@ -127,6 +133,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
 
         binding.appBarMain.mainContent.ivBgImage.setOnClickListener {
             showImageChooserDialog(galleryBgImageResultLauncher, cameraBgImageResultLauncher)
+        }
+
+        binding.appBarMain.mainContent.btnApply.setOnClickListener {
+            applyEffect()
         }
     }
 
@@ -302,7 +312,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
     private fun afterPictureTaken(imageUri: Uri?) {
         try {
             selectedImageFileUri = imageUri
-
             Glide
                 .with(this)
                 .load(imageUri)
@@ -317,7 +326,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
     private fun afterBgPictureTaken(imageUri: Uri?) {
         try {
             selectedBgImageFileUri = imageUri
-
             Glide
                 .with(this)
                 .load(imageUri)
@@ -326,6 +334,94 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
                 .into(binding.appBarMain.mainContent.ivBgImage)
         } catch (e: IOException) {
             e.printStackTrace()
+        }
+    }
+
+    private fun applyEffect() {
+        if (effectInputType == null) {
+            showErrorSnackBar(R.string.select_effect_first)
+            return
+        }
+        if (selectedImageFileUri == null) {
+            showErrorSnackBar(R.string.select_image_first)
+            return
+        }
+        showProgressDialog()
+        lifecycleScope.launch {
+            if (HttpClient.api == null) {
+                startActivity(Intent(this@MainActivity, SignInActivity::class.java))
+            }
+            val image = fileFromContentUri(selectedImageFileUri!!)
+            var bgImage: File? = null
+            val bgColor: String?
+            val effectParams = mutableListOf<EffectParam>()
+            if (Constants.Effects.REQUIRES_BG_IMAGE_OR_COLOR.contains(effectInputType)) {
+                bgImage =
+                    if (selectedBgImageFileUri != null) fileFromContentUri(selectedBgImageFileUri!!) else null
+                bgColor = backgroundColorInHex
+                effectParams.add(EffectParam("bg_color", bgColor))
+            }
+            val response = try {
+                HttpClient.api?.applyEffect(
+                    EffectRequest(
+                        effectInputType!!,
+                        effectParams
+                    ),
+                    MultipartBody.Part.createFormData("image", image.name, image.asRequestBody()),
+                    bgImage?.asRequestBody()?.let {
+                        MultipartBody.Part.createFormData("image2", bgImage.name, it)
+                    }
+                )
+            } catch (e: IOException) {
+                Log.e(TAG, "IOException, possible lack of Internet connection. ${e.message}")
+                hideProgressDialog()
+                showErrorSnackBar(R.string.check_your_internet_connection)
+                return@launch
+            } catch (e: HttpException) {
+                Log.e(TAG, "HttpException, unexpected response. ${e.message}")
+                hideProgressDialog()
+                showErrorSnackBar(R.string.unexpected_http_response)
+                return@launch
+            }
+            if (response?.isSuccessful == true && response.body() != null) {
+                Log.e("DUPA", "success")
+            }
+            Log.e("DUPA", "fail")
+            Log.e("DUPA", response?.errorBody().toString())
+            Log.e("DUPA", response.toString())
+            Log.e("DUPA", response?.body().toString())
+            hideProgressDialog()
+        }
+    }
+
+    private fun fileFromContentUri(contentUri: Uri): File {
+        val fileExtension = getFileExtension(contentUri)
+        val fileName = "temp_file" + if (fileExtension != null) ".$fileExtension" else ""
+
+        val tempFile = File(cacheDir, fileName)
+        tempFile.createNewFile()
+
+        try {
+            val oStream = FileOutputStream(tempFile)
+            val inputStream = contentResolver.openInputStream(contentUri)
+
+            inputStream?.let {
+                copy(inputStream, oStream)
+            }
+
+            oStream.flush()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        return tempFile
+    }
+
+    private fun copy(source: InputStream, target: OutputStream) {
+        val buf = ByteArray(8192)
+        var length: Int
+        while (source.read(buf).also { length = it } > 0) {
+            target.write(buf, 0, length)
         }
     }
 

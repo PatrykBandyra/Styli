@@ -29,8 +29,8 @@ interface Api {
     @Multipart
     suspend fun applyEffect(
         @Part("effectRequest") effectRequest: EffectRequest,
-        @Part("image") image: MultipartBody.Part,
-        @Part("image2") image2: MultipartBody.Part?
+        @Part image: MultipartBody.Part,
+        @Part image2: MultipartBody.Part?
     ): Response<EffectResponse>
 
     // Images --------------------------------------------------------------------------------------

@@ -64,5 +64,7 @@
     <string name="select_image_from_gallery">Select image from Gallery</string>
     <string name="take_photo">Capture photo from Camera</string>
     <string name="select_action">Select Action</string>
+    <string name="select_effect_first">Select effect first</string>
+    <string name="select_image_first">Select image first</string>
     <!--  !Main Screen  -->
 </resources>
