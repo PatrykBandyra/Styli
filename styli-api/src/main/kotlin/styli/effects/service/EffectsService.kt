@@ -53,6 +53,7 @@ class EffectsService(
             effectRequest.effectParams.forEach { effectParam: EffectRequest.EffectParam ->
                 multipartBodyBuilder.part(effectParam.name, effectParam.value)
             }
+            logger.info("URL: $effectUrl")
             return WebClient.create(effectUrl)
                 .post()
                 .uri { builder: UriBuilder ->
