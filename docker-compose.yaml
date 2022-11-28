@@ -28,6 +28,8 @@ services:
       - "${UI_HOST_PORT}:${UI_CONTAINER_PORT}"
   style-transfer:
     container_name: style-transfer
+    depends_on:
+      - api
     restart: always
     env_file:
       - style-transfer.env
@@ -35,6 +37,8 @@ services:
       context: styli-style-transfer
   segmentation:
     container_name: segmentation
+    depends_on:
+      - api
     restart: always
     build:
       context: styli-segmentation
