@@ -38,3 +38,5 @@ services:
     restart: always
     build:
       context: styli-segmentation
+    ports:
+      - "${SEGMENTATION_HOST_PORT}:${SEGMENTATION_CONTAINER_PORT}"
