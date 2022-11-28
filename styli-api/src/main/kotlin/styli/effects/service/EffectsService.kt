@@ -28,6 +28,7 @@ class EffectsService(
 
     fun getAvailableEffects(): List<String> {
         val effects: List<String> = effectsConfig.effects.map { effect: EffectsConfig.Effect ->
+            logger.info("URL: ${effect.healthUrl}")
             val response: HttpStatus? = WebClient.create(effect.healthUrl).get()
                 .exchangeToMono { response: ClientResponse -> Mono.just(response.statusCode()) }
                 .onErrorComplete()
