@@ -4,7 +4,6 @@ import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.client.MultipartBodyBuilder
-import org.springframework.http.client.reactive.ReactorClientHttpConnector
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.reactive.function.BodyInserters
@@ -13,8 +12,6 @@ import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.WebClientRequestException
 import org.springframework.web.util.UriBuilder
 import reactor.core.publisher.Mono
-import reactor.netty.http.client.HttpClient
-import reactor.netty.resources.ConnectionProvider
 import styli.effects.config.EffectsConfig
 import styli.effects.dto.request.EffectRequest
 import styli.exceptions.EffectServiceDownException
@@ -23,7 +20,6 @@ import styli.exceptions.InvalidEffectNameException
 @Service
 class EffectsService(
     private val effectsConfig: EffectsConfig,
-//    private val restClient: WebClient
 ) {
 
     companion object {
@@ -59,10 +55,7 @@ class EffectsService(
                 multipartBodyBuilder.part(effectParam.name, effectParam.value)
             }
             logger.info("URL: $effectUrl")
-            return WebClient.builder()
-                .clientConnector(connector())
-                .baseUrl(effectUrl)
-                .build()
+            return WebClient.create(effectUrl)
                 .post()
                 .uri { builder: UriBuilder ->
                     effectRequest.effectParams.forEach { effectParam: EffectRequest.EffectParam ->
@@ -82,8 +75,4 @@ class EffectsService(
             throw EffectServiceDownException("Service applying effect ${effectRequest.effectName} is down")
         }
     }
-
-    private fun connector() = ReactorClientHttpConnector(HttpClient.create(ConnectionProvider.newConnection()))
-//    @Bean
-//    fun restClient(): WebClient = WebClient.builder().clientConnector(connector()).build()
 }

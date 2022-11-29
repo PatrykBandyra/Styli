@@ -19,8 +19,8 @@ styli:
     expirationInSeconds: 3600
   effects:
     - name: cartoonize
-      url: ${STYLE_TRANSFER_HOST}:${STYLE_TRANSFER_PORT}/st/cartoonization
-      healthUrl: ${STYLE_TRANSFER_HOST}:${STYLE_TRANSFER_PORT}/st/health
+      url: http://${STYLE_TRANSFER_HOST}:${STYLE_TRANSFER_PORT}/st/cartoonization
+      healthUrl: http://${STYLE_TRANSFER_HOST}:${STYLE_TRANSFER_PORT}/st/health
     - name: background-swap
-      url: ${SEGMENTATION_HOST}:${SEGMENTATION_PORT}/sgm/segmentation
-      healthUrl: ${SEGMENTATION_HOST}:${SEGMENTATION_PORT}/sgm/health
+      url: http://${SEGMENTATION_HOST}:${SEGMENTATION_PORT}/sgm/segmentation
+      healthUrl: http://${SEGMENTATION_HOST}:${SEGMENTATION_PORT}/sgm/health
