@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/styli.iml" filepath="$PROJECT_DIR$/styli.iml" />
       <module fileurl="file://$PROJECT_DIR$/styli-segmentation/styli-segmentation.iml" filepath="$PROJECT_DIR$/styli-segmentation/styli-segmentation.iml" />
       <module fileurl="file://$PROJECT_DIR$/styli-style-transfer/styli-style-transfer.iml" filepath="$PROJECT_DIR$/styli-style-transfer/styli-style-transfer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/styli-style-transfer-2/styli-style-transfer-2.iml" filepath="$PROJECT_DIR$/styli-style-transfer-2/styli-style-transfer-2.iml" />
     </modules>
   </component>
 </project>
