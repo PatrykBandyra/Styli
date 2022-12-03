@@ -3,16 +3,15 @@ package styli.android.activities
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Base64
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.webkit.MimeTypeMap
 import android.widget.ArrayAdapter
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -40,7 +39,10 @@ import styli.android.global.AppPreferences
 import styli.android.global.Constants
 import yuku.ambilwarna.AmbilWarnaDialog
 import yuku.ambilwarna.AmbilWarnaDialog.OnAmbilWarnaListener
-import java.io.*
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.IOException
 
 class MainActivity : BaseActivity<ActivityMainBinding>(),
     NavigationView.OnNavigationItemSelectedListener {
@@ -50,11 +52,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
     private var effectInputType: String? = null
     private var selectedImageFileUri: Uri? = null
     private var selectedBgImageFileUri: Uri? = null
+    private var currentImage: ByteArray? = null
 
     private val galleryImageResultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 if (result.data!!.data != null) {
+                    currentImage = null
                     selectedImageFileUri = result.data!!.data
                     try {
                         Glide
@@ -93,6 +97,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 if (result.data != null) {
+                    currentImage = null
                     val imageUri = result.data!!.data
                     afterPictureTaken(imageUri)
                 }
@@ -312,8 +317,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
     private fun afterPictureTaken(imageUri: Uri?) {
         try {
             selectedImageFileUri = imageUri
-            Glide
-                .with(this)
+            Glide.with(this)
                 .load(imageUri)
                 .centerCrop()
                 .placeholder(R.drawable.ic_image)
@@ -351,13 +355,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
             if (HttpClient.api == null) {
                 startActivity(Intent(this@MainActivity, SignInActivity::class.java))
             }
-            val image = fileFromContentUri(selectedImageFileUri!!)
+            val image = if (currentImage != null) getImageFileFromByteArray(currentImage!!) else
+                getImageFileFromUri(selectedImageFileUri!!)
             var bgImage: File? = null
             val bgColor: String?
             val effectParams = mutableListOf<EffectParam>()
             if (Constants.Effects.REQUIRES_BG_IMAGE_OR_COLOR.contains(effectInputType)) {
                 bgImage =
-                    if (selectedBgImageFileUri != null) fileFromContentUri(selectedBgImageFileUri!!) else null
+                    if (selectedBgImageFileUri != null) getImageFileFromUri(selectedBgImageFileUri!!) else null
                 bgColor = backgroundColorInHex
                 effectParams.add(EffectParam("bg_color", bgColor))
             }
@@ -367,7 +372,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
                         effectInputType!!,
                         effectParams
                     ),
-                    MultipartBody.Part.createFormData("image", image.name, image.asRequestBody()),
+                    MultipartBody.Part.createFormData("image", image!!.name, image.asRequestBody()),
                     bgImage?.asRequestBody()?.let {
                         MultipartBody.Part.createFormData("image2", bgImage.name, it)
                     }
@@ -384,45 +389,39 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
                 return@launch
             }
             if (response?.isSuccessful == true && response.body() != null) {
-                Log.e("DUPA", "success")
+                currentImage = Base64.decode(response.body()!!.image, Base64.DEFAULT)
+                Glide.with(this@MainActivity)
+                    .load(currentImage)
+                    .centerCrop()
+                    .placeholder(R.drawable.ic_image)
+                    .into(binding.appBarMain.mainContent.ivImage)
             }
-            Log.e("DUPA", "fail")
-            Log.e("DUPA", response?.errorBody().toString())
-            Log.e("DUPA", response.toString())
-            Log.e("DUPA", response?.body().toString())
             hideProgressDialog()
         }
     }
 
-    private fun fileFromContentUri(contentUri: Uri): File {
-        val fileExtension = getFileExtension(contentUri)
-        val fileName = "temp_file" + if (fileExtension != null) ".$fileExtension" else ""
-
-        val tempFile = File(cacheDir, fileName)
-        tempFile.createNewFile()
-
-        try {
-            val oStream = FileOutputStream(tempFile)
-            val inputStream = contentResolver.openInputStream(contentUri)
-
-            inputStream?.let {
-                copy(inputStream, oStream)
-            }
-
-            oStream.flush()
-        } catch (e: Exception) {
-            e.printStackTrace()
+    private fun getImageFileFromByteArray(imageByteArray: ByteArray): File {
+        val file = File(cacheDir, "currentImage.jpg")
+        if (file.exists()) {
+            file.delete()
         }
-
-        return tempFile
+        FileOutputStream(file).use { outStream ->
+            outStream.write(imageByteArray)
+            return file
+        }
     }
 
-    private fun copy(source: InputStream, target: OutputStream) {
-        val buf = ByteArray(8192)
-        var length: Int
-        while (source.read(buf).also { length = it } > 0) {
-            target.write(buf, 0, length)
+    private fun getImageFileFromUri(uri: Uri): File? {
+        contentResolver.openFileDescriptor(uri, "r", null)?.use { fd ->
+            val file = File(cacheDir, getFileName(uri) ?: "image.jpg")
+            FileInputStream(fd.fileDescriptor).use { inStream ->
+                FileOutputStream(file).use { outStream ->
+                    inStream.copyTo(outStream)
+                    return file
+                }
+            }
         }
+        return null
     }
 
     override fun onBackPressed() {

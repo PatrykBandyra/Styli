@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.provider.OpenableColumns
 import android.provider.Settings
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
@@ -153,6 +154,15 @@ abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {
         } else {
             drawer.openDrawer(GravityCompat.START)
         }
+    }
+
+    protected fun getFileName(uri: Uri): String? {
+        contentResolver.query(uri, null, null, null, null)?.use {
+            it.moveToFirst()
+            val index = it.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+            return it.getString(index)
+        }
+        return null
     }
 
     protected fun getFileExtension(uri: Uri?): String? {
