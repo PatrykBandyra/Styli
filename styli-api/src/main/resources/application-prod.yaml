@@ -9,9 +9,15 @@ spring:
       ddl-auto: create-drop
     show-sql: true
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
 
 server:
   port: 8000
+  tomcat:
+    max-swallow-size: 100MB
 
 styli:
   rootUrl: "/api"
