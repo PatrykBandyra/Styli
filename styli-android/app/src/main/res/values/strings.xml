@@ -66,5 +66,7 @@
     <string name="select_action">Select Action</string>
     <string name="select_effect_first">Select effect first</string>
     <string name="select_image_first">Select image first</string>
+    <string name="image_upload_success">Image uploaded successfully</string>
+    <string name="image_upload_fail">Image upload failed</string>
     <!--  !Main Screen  -->
 </resources>

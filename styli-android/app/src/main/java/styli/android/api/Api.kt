@@ -41,9 +41,10 @@ interface Api {
     ): Response<ImageResponse>
 
     @POST("image")
+    @Multipart
     suspend fun uploadImage(
         @Part("imageDetails") imageDetails: ImageDetails,
-        @Part("image") image: MultipartBody.Part
+        @Part image: MultipartBody.Part
     ): Response<Void>
 
     @DELETE("image")

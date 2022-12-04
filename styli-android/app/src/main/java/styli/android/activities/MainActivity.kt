@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.GravityCompat
@@ -25,6 +26,8 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import kotlinx.coroutines.launch
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.internal.toHexString
@@ -33,6 +36,7 @@ import styli.android.R
 import styli.android.api.HttpClient
 import styli.android.api.dto.effect.EffectParam
 import styli.android.api.dto.effect.EffectRequest
+import styli.android.api.dto.image.ImageDetails
 import styli.android.databinding.ActivityMainBinding
 import styli.android.databinding.NavViewHeaderMenuBinding
 import styli.android.global.AppPreferences
@@ -142,6 +146,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
 
         binding.appBarMain.mainContent.btnApply.setOnClickListener {
             applyEffect()
+        }
+
+        binding.appBarMain.mainContent.btnSave.setOnClickListener {
+            uploadImage()
         }
     }
 
@@ -395,6 +403,51 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
                     .centerCrop()
                     .placeholder(R.drawable.ic_image)
                     .into(binding.appBarMain.mainContent.ivImage)
+            }
+            hideProgressDialog()
+        }
+    }
+
+    private fun uploadImage() {
+        if (currentImage == null || selectedImageFileUri == null) {
+            showErrorSnackBar(R.string.select_image_first)
+            return
+        }
+        showProgressDialog()
+        lifecycleScope.launch {
+            if (HttpClient.api == null) {
+                startActivity(Intent(this@MainActivity, SignInActivity::class.java))
+            }
+            val image = if (currentImage != null) getImageFileFromByteArray(currentImage!!) else
+                getImageFileFromUri(selectedImageFileUri!!)
+            val response = try {
+                HttpClient.api?.uploadImage(
+                    ImageDetails(null),
+                    MultipartBody.Part.createFormData(
+                        "image",
+                        image!!.name,
+                        image.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                    )
+                )
+            } catch (e: IOException) {
+                Log.e(TAG, "IOException, possible lack of Internet connection. ${e.message}")
+                hideProgressDialog()
+                showErrorSnackBar(R.string.check_your_internet_connection)
+                return@launch
+            } catch (e: HttpException) {
+                Log.e(TAG, "HttpException, unexpected response. ${e.message}")
+                hideProgressDialog()
+                showErrorSnackBar(R.string.unexpected_http_response)
+                return@launch
+            }
+            if (response?.isSuccessful == true) {
+                Toast.makeText(
+                    this@MainActivity,
+                    getString(R.string.image_upload_success),
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+                showErrorSnackBar(R.string.image_upload_fail)
             }
             hideProgressDialog()
         }
