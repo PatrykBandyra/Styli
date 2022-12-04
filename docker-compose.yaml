@@ -35,6 +35,13 @@ services:
       - style-transfer.env
     build:
       context: styli-style-transfer
+  style-transfer-2:
+    container_name: style-transfer-2
+    depends_on:
+      - api
+    restart: always
+    build:
+      context: styli-style-transfer-2
   segmentation:
     container_name: segmentation
     depends_on:

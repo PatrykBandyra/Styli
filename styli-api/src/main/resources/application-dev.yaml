@@ -27,6 +27,9 @@ styli:
     - name: cartoonize
       url: http://localhost:8001/st/cartoonization
       healthUrl: http://localhost:8001/st/health
+    - name: colorize
+      url: http://localhost:8003/st2/nst
+      healthUrl: http://localhost:8003/st2/health
     - name: background-swap
       url: http://localhost:8002/sgm/segmentation
       healthUrl: http://localhost:8002/sgm/health

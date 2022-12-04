@@ -1,11 +1,17 @@
-# Test your FastAPI endpoints
+# Style transfer 2 service endpoint tests
 
-GET http://127.0.0.1:8000/
+### Health check
+GET {{host}}:{{port}}{{base_url}}/health
 Accept: application/json
 
-###
-
-GET http://127.0.0.1:8000/hello/User
+### Image cartoonization
+POST {{host}}:{{port}}{{base_url}}/nst
 Accept: application/json
+Content-Type: multipart/form-data; boundary=boundary
 
-###
+--boundary
+Content-Disposition: form-data; name="image"; filename="original.png"
+Content-Type: image/png
+
+< ../resources/original.png
+--boundary--

@@ -27,6 +27,9 @@ styli:
     - name: cartoonize
       url: http://${STYLE_TRANSFER_HOST}:${STYLE_TRANSFER_PORT}/st/cartoonization
       healthUrl: http://${STYLE_TRANSFER_HOST}:${STYLE_TRANSFER_PORT}/st/health
+    - name: colorize
+      url: http://${STYLE_TRANSFER_2_HOST}:${STYLE_TRANSFER_2_PORT}/st2/nst
+      healthUrl: http://${STYLE_TRANSFER_2_HOST}:${STYLE_TRANSFER_2_PORT}/st2/health
     - name: background-swap
       url: http://${SEGMENTATION_HOST}:${SEGMENTATION_PORT}/sgm/segmentation
       healthUrl: http://${SEGMENTATION_HOST}:${SEGMENTATION_PORT}/sgm/health
