@@ -30,20 +30,22 @@ else:
 
 
 def get_state_dict():
-    try:
+    try:  # local
         return torch.load('model.pth')
-
     except FileNotFoundError:
-        @contextlib.contextmanager
-        def suppress_output():
-            with open(os.devnull, 'w') as devnull:
-                with contextlib.redirect_stdout(devnull), contextlib.redirect_stderr(devnull):
-                    yield
+        try:  # docker
+            return torch.load('app/model.pth')
+        except FileNotFoundError:
+            @contextlib.contextmanager
+            def suppress_output():
+                with open(os.devnull, 'w') as devnull:
+                    with contextlib.redirect_stdout(devnull), contextlib.redirect_stderr(devnull):
+                        yield
 
-        url = "https://download.pystiche.org/models/example_transformer.pth"
+            url = "https://download.pystiche.org/models/example_transformer.pth"
 
-        with suppress_output():
-            return torch.hub.load_state_dict_from_url(url)
+            with suppress_output():
+                return torch.hub.load_state_dict_from_url(url)
 
 
 transformer = pystiche.demo.transformer().to(device)
