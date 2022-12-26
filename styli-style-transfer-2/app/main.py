@@ -31,7 +31,7 @@ else:
 
 def get_state_dict():
     try:
-        return torch.load('example_transformer.pth')
+        return torch.load('model.pth')
 
     except FileNotFoundError:
         @contextlib.contextmanager
