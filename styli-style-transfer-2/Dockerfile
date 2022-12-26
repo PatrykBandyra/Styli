@@ -8,7 +8,9 @@ RUN apt-get install ffmpeg libsm6 libxext6  -y
 
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
-COPY ./app /code/appd
+COPY ./app /code/app
+
+ENV PYTHONPATH /code/app
 
 EXPOSE 80
 
