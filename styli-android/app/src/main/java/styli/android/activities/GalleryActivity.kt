@@ -3,9 +3,11 @@ package styli.android.activities
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +18,7 @@ import styli.android.R
 import styli.android.adapters.ImagesAdapter
 import styli.android.api.HttpClient
 import styli.android.databinding.ActivityGalleryBinding
-import styli.android.global.Constants.Activity.Gallery.IMAGE_DATA
+import styli.android.global.Constants.Activity.Gallery.IMAGE_URI
 import styli.android.global.Constants.Activity.Gallery.IMAGE_DELETED_RESULT
 import styli.android.global.Constants.Activity.Gallery.IMAGE_POS
 import styli.android.global.Constants.Activity.Gallery.PAGE_LOAD_BUFFER
@@ -97,9 +99,11 @@ class GalleryActivity : BaseActivity<ActivityGalleryBinding>() {
     private fun initClickListener() {
         imagesAdapter.setOnClickListener { pos, image ->
             val intent = Intent(this, ImageDetailsActivity::class.java)
-
-            Log.e("HERE", image.image.length.toString())
-            intent.putExtra(IMAGE_DATA, image)
+            val imageFile = getImageFileFromByteArray(Base64.decode(image.image, Base64.DEFAULT), "image.jpg")
+            Log.e("HERE", imageFile.absolutePath)
+            Log.e("HERE", imageFile.toUri().toString())
+            Log.e("HERE", imageFile.length().toString())
+            intent.putExtra(IMAGE_URI, imageFile.toUri())
             intent.putExtra(IMAGE_POS, pos)
             imageDetailsLauncher.launch(intent)
         }
