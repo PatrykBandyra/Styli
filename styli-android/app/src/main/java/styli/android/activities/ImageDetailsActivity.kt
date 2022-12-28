@@ -74,8 +74,9 @@ class ImageDetailsActivity : BaseActivity<ActivityImageDetailsBinding>() {
                     return@launch
                 }
                 if (response?.isSuccessful == true) {
-                    val intent = Intent()
-                    intent.putExtra(IMAGE_POS, imagePos)
+                    val intent = Intent().apply {
+                        putExtra(IMAGE_POS, imagePos)
+                    }
                     setResult(IMAGE_DELETED_RESULT, intent)
                     finish()
                 }
