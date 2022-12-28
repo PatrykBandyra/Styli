@@ -25,6 +25,6 @@ class ImageService(
     fun getImagesByUsernamePaged(username: String, page: Int, size: Int): Page<ImageDto> {
         val pageRequest = PageRequest.of(page, size)
         return imageRepository.findAllByProfileUserUsername(username, pageRequest)
-            .map { image: Image -> ImageDto(image.image, image.description) }
+            .map { image: Image -> ImageDto(image.id!!, image.image, image.description) }
     }
 }
