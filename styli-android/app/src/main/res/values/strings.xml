@@ -68,5 +68,9 @@
     <string name="select_image_first">Select image first</string>
     <string name="image_upload_success">Image uploaded successfully</string>
     <string name="image_upload_fail">Image upload failed</string>
+    <string name="no_images">No images</string>
+    <string name="gallery_item">Gallery item</string>
+    <string name="delete">Delete</string>
+    <string name="download">Download</string>
     <!--  !Main Screen  -->
 </resources>

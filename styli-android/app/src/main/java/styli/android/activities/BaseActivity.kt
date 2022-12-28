@@ -25,6 +25,9 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.snackbar.Snackbar
 import styli.android.R
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
 
 abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {
 
@@ -167,5 +170,29 @@ abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {
 
     protected fun getFileExtension(uri: Uri?): String? {
         return MimeTypeMap.getSingleton().getExtensionFromMimeType(contentResolver.getType(uri!!))
+    }
+
+    protected fun getImageFileFromByteArray(imageByteArray: ByteArray, imageName: String): File {
+        val file = File(cacheDir, imageName)
+        if (file.exists()) {
+            file.delete()
+        }
+        FileOutputStream(file).use { outStream ->
+            outStream.write(imageByteArray)
+            return file
+        }
+    }
+
+    protected fun getImageFileFromUri(uri: Uri): File? {
+        contentResolver.openFileDescriptor(uri, "r", null)?.use { fd ->
+            val file = File(cacheDir, getFileName(uri) ?: "image.jpg")
+            FileInputStream(fd.fileDescriptor).use { inStream ->
+                FileOutputStream(file).use { outStream ->
+                    inStream.copyTo(outStream)
+                    return file
+                }
+            }
+        }
+        return null
     }
 }

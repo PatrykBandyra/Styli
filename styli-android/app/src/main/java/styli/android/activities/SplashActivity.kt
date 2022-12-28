@@ -13,10 +13,10 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AppPreferences.setup(applicationContext)
 
         Handler(Looper.getMainLooper()).postDelayed(
             {
+                AppPreferences.setup(applicationContext)
                 if (AppPreferences.isUserLoggedIn()) {
                     startActivity(Intent(this@SplashActivity, MainActivity::class.java))
                 } else {

@@ -26,7 +26,6 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import kotlinx.coroutines.launch
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -239,7 +238,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
 
     private fun changeUIBasedOnInputType() {
         when (effectInputType) {
-            Constants.Effects.CARTOONIZE -> {
+            Constants.Effects.CARTOONIZE, Constants.Effects.COLORIZE -> {
                 binding.appBarMain.mainContent.tvColor.visibility = View.GONE
                 binding.appBarMain.mainContent.ibColor.visibility = View.GONE
                 binding.appBarMain.mainContent.ivBgImage.visibility = View.GONE
@@ -363,7 +362,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
             if (HttpClient.api == null) {
                 startActivity(Intent(this@MainActivity, SignInActivity::class.java))
             }
-            val image = if (currentImage != null) getImageFileFromByteArray(currentImage!!) else
+            val image = if (currentImage != null) getImageFileFromByteArray(
+                currentImage!!, "currentImage.jpg"
+            ) else
                 getImageFileFromUri(selectedImageFileUri!!)
             var bgImage: File? = null
             val bgColor: String?
@@ -418,7 +419,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
             if (HttpClient.api == null) {
                 startActivity(Intent(this@MainActivity, SignInActivity::class.java))
             }
-            val image = if (currentImage != null) getImageFileFromByteArray(currentImage!!) else
+            val image = if (currentImage != null) getImageFileFromByteArray(
+                currentImage!!,
+                "currentImage.jpg"
+            ) else
                 getImageFileFromUri(selectedImageFileUri!!)
             val response = try {
                 HttpClient.api?.uploadImage(
@@ -451,30 +455,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
             }
             hideProgressDialog()
         }
-    }
-
-    private fun getImageFileFromByteArray(imageByteArray: ByteArray): File {
-        val file = File(cacheDir, "currentImage.jpg")
-        if (file.exists()) {
-            file.delete()
-        }
-        FileOutputStream(file).use { outStream ->
-            outStream.write(imageByteArray)
-            return file
-        }
-    }
-
-    private fun getImageFileFromUri(uri: Uri): File? {
-        contentResolver.openFileDescriptor(uri, "r", null)?.use { fd ->
-            val file = File(cacheDir, getFileName(uri) ?: "image.jpg")
-            FileInputStream(fd.fileDescriptor).use { inStream ->
-                FileOutputStream(file).use { outStream ->
-                    inStream.copyTo(outStream)
-                    return file
-                }
-            }
-        }
-        return null
     }
 
     override fun onBackPressed() {
