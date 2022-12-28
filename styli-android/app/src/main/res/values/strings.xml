@@ -72,5 +72,7 @@
     <string name="gallery_item">Gallery item</string>
     <string name="delete">Delete</string>
     <string name="download">Download</string>
+    <string name="image_deletion_success">Image deleted successfully</string>
+    <string name="image_download_success">Image downloaded successfully</string>
     <!--  !Main Screen  -->
 </resources>

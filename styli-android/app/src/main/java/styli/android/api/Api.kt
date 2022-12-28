@@ -48,5 +48,5 @@ interface Api {
     ): Response<Void>
 
     @DELETE("image")
-    suspend fun deleteImage(@Query("id") imageId: Int): Response<Void>
+    suspend fun deleteImage(@Query("id") imageId: Long): Response<Void>
 }

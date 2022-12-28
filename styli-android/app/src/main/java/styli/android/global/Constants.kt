@@ -10,6 +10,7 @@ object Constants {
 
             const val IMAGE_DELETED_RESULT = 999
 
+            const val IMAGE_ID = "imageId"
             const val IMAGE_URI = "imageUri"
             const val IMAGE_POS = "imagePos"
         }

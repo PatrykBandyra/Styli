@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
@@ -20,6 +21,7 @@ import styli.android.api.HttpClient
 import styli.android.databinding.ActivityGalleryBinding
 import styli.android.global.Constants.Activity.Gallery.IMAGE_URI
 import styli.android.global.Constants.Activity.Gallery.IMAGE_DELETED_RESULT
+import styli.android.global.Constants.Activity.Gallery.IMAGE_ID
 import styli.android.global.Constants.Activity.Gallery.IMAGE_POS
 import styli.android.global.Constants.Activity.Gallery.PAGE_LOAD_BUFFER
 import styli.android.global.Constants.Activity.Gallery.PAGE_SIZE
@@ -42,6 +44,11 @@ class GalleryActivity : BaseActivity<ActivityGalleryBinding>() {
                     imagesAdapter.notifyItemRemoved(imagePos)
                     imagesAdapter.notifyItemRangeChanged(imagePos, imagesAdapter.itemCount)
                 }
+                Toast.makeText(
+                    this,
+                    resources.getString(R.string.image_deletion_success),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
@@ -100,10 +107,8 @@ class GalleryActivity : BaseActivity<ActivityGalleryBinding>() {
         imagesAdapter.setOnClickListener { pos, image ->
             val intent = Intent(this, ImageDetailsActivity::class.java)
             val imageFile = getImageFileFromByteArray(Base64.decode(image.image, Base64.DEFAULT), "image.jpg")
-            Log.e("HERE", imageFile.absolutePath)
-            Log.e("HERE", imageFile.toUri().toString())
-            Log.e("HERE", imageFile.length().toString())
             intent.putExtra(IMAGE_URI, imageFile.toUri())
+            intent.putExtra(IMAGE_ID, image.id)
             intent.putExtra(IMAGE_POS, pos)
             imageDetailsLauncher.launch(intent)
         }
