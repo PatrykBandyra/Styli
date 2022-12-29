@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {EffectService} from '../effect.service';
-import {HttpErrorResponse} from '@angular/common/http';
+import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {MatSelectChange} from '@angular/material/select';
 import {EffectType} from '../effectType';
 import {EffectResponse} from '../dto/effect.response';
+import {ImageService} from '../image.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-editor',
@@ -12,7 +14,9 @@ import {EffectResponse} from '../dto/effect.response';
 })
 export class EditorComponent implements OnInit {
 
-    constructor(private effectService: EffectService) {
+    constructor(private effectService: EffectService,
+                private imageService: ImageService,
+                private snackBar: MatSnackBar) {
     }
 
     file?: File;
@@ -35,6 +39,19 @@ export class EditorComponent implements OnInit {
             };
             reader.readAsDataURL(this.file);
         }
+    }
+
+    onSaveClicked(): void {
+        this.imageService.uploadImage(
+            this.file!!
+        ).subscribe({
+            next: () => {
+                this.snackBar.open("Image saved successfully", "Close", {duration: 3_000})
+            },
+            error: () => {
+                this.snackBar.open("Error occurred while saving an image", "Close", {duration: 3_000})
+            }
+        })
     }
 
     private getAvailableEffects(): void {

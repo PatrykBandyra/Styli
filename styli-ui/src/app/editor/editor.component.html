@@ -16,12 +16,13 @@
     <div class="editor__effects-toolbar">
         <app-cartoonize *ngIf="selectedEffect===EffectType.CARTOONIZE" [file]="file" (effectAppliedEvent)="onEffectApplied($event)"></app-cartoonize>
         <app-background-swap *ngIf="selectedEffect===EffectType.BACKGROUND_SWAP" [file]="file" (effectAppliedEvent)="onEffectApplied($event)"></app-background-swap>
+        <app-colorize *ngIf="selectedEffect===EffectType.COLORIZE" [file]="file" (effectAppliedEvent)="onEffectApplied($event)"></app-colorize>
     </div>
     <div class="editor__toolbar">
         <label>
             Select main image
             <input type="file" accept="image/*" (change)="selectFile($event)"/>
         </label>
-        <button mat-button>Save</button>
+        <button mat-button (click)="onSaveClicked()" [disabled]="file === null || file === undefined">Save</button>
     </div>
 </mat-card>

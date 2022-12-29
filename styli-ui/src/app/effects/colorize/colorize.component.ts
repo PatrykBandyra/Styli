@@ -1,14 +1,14 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {EffectService} from '../../effect.service';
-import {EffectType} from '../../effectType';
 import {EffectResponse} from '../../dto/effect.response';
+import {EffectType} from '../../effectType';
 
 @Component({
-    selector: 'app-cartoonize',
-    templateUrl: './cartoonize.component.html',
-    styleUrls: ['./cartoonize.component.scss'],
+  selector: 'app-colorize',
+  templateUrl: './colorize.component.html',
+  styleUrls: ['./colorize.component.scss']
 })
-export class CartoonizeComponent {
+export class ColorizeComponent {
 
     constructor(private effectService: EffectService) {
     }
@@ -16,13 +16,14 @@ export class CartoonizeComponent {
     @Input() file?: File;
     @Output() effectAppliedEvent = new EventEmitter<EffectResponse>();
 
-    onCartoonizeBtnClick(): void {
+    onColorizeBtnClicked(): void {
         this.effectService.applyEffect({
-            effectName: EffectType.CARTOONIZE.toString(),
+            effectName: EffectType.COLORIZE.toString(),
             effectParams: [],
             image: this.file!!,
         }).subscribe(
             (response: EffectResponse) => this.effectAppliedEvent.emit(response),
         );
     }
+
 }

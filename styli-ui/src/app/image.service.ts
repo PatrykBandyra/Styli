@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -11,7 +12,7 @@ export class ImageService {
 
     private static readonly BASE_URL: string = '/api/image';
 
-    uploadImage(image: File, description?: string) {
+    uploadImage(image: File, description?: string): Observable<HttpResponse<any>> {
         const form = new FormData();
         form.append('image', image, image.name);
         form.append('imageDetails',
@@ -21,7 +22,7 @@ export class ImageService {
                 })], {type: 'application/json'},
             ),
         );
-        return this.http.post(ImageService.BASE_URL, form);
+        return this.http.post<any>(ImageService.BASE_URL, form);
     }
 
     // getImages(page: number, size: number) {

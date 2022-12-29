@@ -1,8 +1,6 @@
 
 v
 Fstyli-api/src/main/kotlin/styli/effects/dto/response/EffectResponse.kt,3\b\3b1d076cd0f7e12e0ef3fe0dac43463db0ec244e
-u
-Estyli-ui/src/app/effects/background-swap/background-swap.component.ts,3\4\34c2883a533c4cf1792b352d932620b3cbfb3468
 V
 &styli-segmentation/app/segmentation.py,3\a\3a604386b37e73b4c91a56ba834a21aaace3012f
 6
@@ -11,8 +9,6 @@ N
 styli-segmentation/app/main.py,7\e\7e2d8159c705bbd9366b21f02ea217127872ab1a
 a
 1styli-style-transfer-2/styli-style-transfer-2.iml,9\c\9ce2786925edda46b86b69003a5101f8e2b18ddd
-N
-styli-segmentation/app/app.log,a\d\ad163e61e73c6ca1731cbec2ef615c1c61853355
 4
 .env,3\c\3c84dcdc6bbe3d7817c49dcdc327b926fea1808a
 q
@@ -25,3 +21,23 @@ h
 8styli-android/app/src/main/java/styli/android/api/Api.kt,a\9\a983cf8fca2d0c7cbd80ba0fcb8aa19d03545c1d
 a
 1styli-android/app/src/main/res/values/strings.xml,3\8\38388f33eac6635167324a7f3fe9c50072cd55ab
+w
+Gstyli-api/src/main/kotlin/styli/effects/controller/EffectsController.kt,f\a\fadad28621cd55957ed3be15bb2453faf2a1dd3e
+y
+Istyli-api/src/main/kotlin/styli/image/dto/request/ImageCreationRequest.kt,0\9\0942d0d443552f23f17f004f7fc3a997fe712d4b
+o
+?styli-api/src/main/kotlin/styli/effects/config/EffectsConfig.kt,0\a\0a74fac84ca3f44191b862ff0c1505dd817226dc
+M
+styli-segmentation/Dockerfile,8\5\8587778ffc0e965c61bad78a038929650a801c91
+x
+Hstyli-android/app/src/main/java/styli/android/activities/MainActivity.kt,0\7\07e7f5f2f4e79271613b9efd1b4d3a4a51a85d0f
+U
+%styli-style-transfer/requirements.txt,0\c\0c9263bbf9f50fc9ba3bdf2cf7b4d16c0b828935
+_
+/styli-style-transfer-2/app/http-client.env.json,b\9\b9b2eec89253ca8eb53462a6bf5222694e573536
+W
+'styli-style-transfer-2/requirements.txt,a\0\a0c29654f7f4b8455c447fca37d6d291f30435d3
+P
+ styli-style-transfer/app/main.py,8\c\8c48e0f62b2672da5b433aad069f7c4c639fd23a
+e
+5styli-api/src/main/kotlin/styli/image/dto/ImageDto.kt,d\0\d0ded7eb051910c03ce7e6c6e9904a2fdd88e2b6

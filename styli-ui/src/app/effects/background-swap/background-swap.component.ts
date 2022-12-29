@@ -8,7 +8,7 @@ import {EffectService} from '../../effect.service';
     templateUrl: './background-swap.component.html',
     styleUrls: ['./background-swap.component.scss'],
 })
-export class BackgroundSwapComponent implements OnInit {
+export class BackgroundSwapComponent {
 
     constructor(private effectService: EffectService) {
     }
@@ -18,9 +18,6 @@ export class BackgroundSwapComponent implements OnInit {
 
     backImageFile?: File;
     backColor: string = '#FFFFFF';
-
-    ngOnInit(): void {
-    }
 
     onBackgroundSwapBtnClick(): void {
         this.effectService.applyEffect({

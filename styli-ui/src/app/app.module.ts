@@ -22,8 +22,9 @@ import {EditorComponent} from './editor/editor.component';
 import {MatSelectModule} from '@angular/material/select';
 import {AuthInterceptor} from './auth.interceptor';
 import {CartoonizeComponent} from './effects/cartoonize/cartoonize.component';
-import { BackgroundSwapComponent } from './effects/background-swap/background-swap.component';
+import {BackgroundSwapComponent} from './effects/background-swap/background-swap.component';
 import {ColorPickerModule} from 'ngx-color-picker';
+import {ColorizeComponent} from './effects/colorize/colorize.component';
 
 @NgModule({
     declarations: [
@@ -35,6 +36,7 @@ import {ColorPickerModule} from 'ngx-color-picker';
         EditorComponent,
         CartoonizeComponent,
         BackgroundSwapComponent,
+        ColorizeComponent,
     ],
     imports: [
         CommonModule,
@@ -51,7 +53,7 @@ import {ColorPickerModule} from 'ngx-color-picker';
         MatIconModule,
         MatSnackBarModule,
         MatSelectModule,
-        ColorPickerModule
+        ColorPickerModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
