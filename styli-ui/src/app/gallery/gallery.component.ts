@@ -3,6 +3,8 @@ import {BehaviorSubject, Observable, Subscription, take, tap} from 'rxjs';
 import ImagesResponse, {Content} from '../dto/images.response';
 import {ImageService} from '../image.service';
 import * as _ from 'lodash';
+import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-gallery',
@@ -21,7 +23,8 @@ export class GalleryComponent implements OnInit, OnDestroy {
     @Input() saveSuccess?: Observable<void>;
     private saveSuccessSubscription?: Subscription;
 
-    constructor(private imageService: ImageService) {
+    constructor(private imageService: ImageService,
+                private snackBar: MatSnackBar) {
     }
 
     ngOnInit(): void {
@@ -66,5 +69,20 @@ export class GalleryComponent implements OnInit, OnDestroy {
             }),
             tap(() => this.finished = true),
         ).subscribe();
+    }
+
+    deleteImage(index: number, id: number): void {
+        this.imageService.deleteImage(id).subscribe({
+            next: (_: HttpResponse<void>) => {
+                const currentImages: Content[] = this.images$.getValue();
+                currentImages.splice(index, 1);
+                this.images$.next(currentImages);
+                this.snackBar.open('Image deleted successfully', 'Close', {duration: 3_000});
+            },
+            error: (_: HttpErrorResponse) => {
+                this.snackBar.open('Error occurred while deleting an image', 'Close', {duration: 3_000});
+            },
+        });
+
     }
 }

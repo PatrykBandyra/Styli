@@ -1,6 +1,12 @@
 <div class="gallery__container">
-    <div *ngFor="let image of images$ | async" class="gallery__item">
-        <img [src]="image.image" [alt]="'Gallery image'"/>
+    <div *ngFor="let image of images$ | async; index as i;" class="gallery__item">
+        <button mat-button [matMenuTriggerFor]="menu">
+            <img [src]="image.image" [alt]="'Gallery image'"/>
+        </button>
+        <mat-menu #menu="matMenu" yPosition="above">
+            <button mat-menu-item><a download="{{i}}_image.jpg" href="{{image.image}}">Download</a></button>
+            <button mat-menu-item class="delete-btn" (click)="deleteImage(i, image.id!!)">Delete</button>
+        </mat-menu>
     </div>
 </div>
 

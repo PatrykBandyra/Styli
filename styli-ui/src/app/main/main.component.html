@@ -17,12 +17,12 @@
 </header>
 
 <main class="main">
-    <div *ngIf="isLoggedIn; else mainNotLoggedIn">
+    <div *ngIf="isLoggedIn; else mainNotLoggedIn" class="main__logged-in">
         <app-editor (saveSuccessEvent)="handleSaveSuccess()" ></app-editor>
         <app-gallery [saveSuccess]="saveSuccess.asObservable()"></app-gallery>
     </div>
     <ng-template #mainNotLoggedIn>
-        <div>
+        <div class="main__logged-out">
             You need to log in
         </div>
     </ng-template>

@@ -28,6 +28,7 @@ import {ColorizeComponent} from './effects/colorize/colorize.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
     declarations: [
@@ -60,6 +61,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
         MatSidenavModule,
         InfiniteScrollModule,
         MatProgressSpinnerModule,
+        MatMenuModule
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},

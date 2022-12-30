@@ -41,3 +41,15 @@ P
  styli-style-transfer/app/main.py,8\c\8c48e0f62b2672da5b433aad069f7c4c639fd23a
 e
 5styli-api/src/main/kotlin/styli/image/dto/ImageDto.kt,d\0\d0ded7eb051910c03ce7e6c6e9904a2fdd88e2b6
+m
+=styli-ui/src/app/effects/cartoonize/cartoonize.component.html,8\d\8dc694e8ed3b175bb703f0513ec923cdf4b3cbe1
+R
+"styli-ui/src/app/effect.service.ts,5\5\555d2a5ac239529ae617db0374b381de2577af4c
+N
+styli-ui/src/app/effectType.ts,b\c\bc3bc1c28470182c1ba60678bd2dfe01cfab1b93
+J
+styli-ui/package-lock.json,4\7\4730a4706bd3f6b8458fb4060e18625af49a022d
+E
+styli-ui/package.json,4\6\462d400e8d4132deed5643da8a95953a48ffe2b3
+W
+'styli-ui/src/app/dto/images.response.ts,1\3\13ee41185242dea289e0ca466818e85632da80aa

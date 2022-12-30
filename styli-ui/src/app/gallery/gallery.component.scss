@@ -11,3 +11,19 @@
         object-fit: cover;
     }
 }
+
+a {
+    &:link, &:visited {
+        color: grey;
+        text-decoration: none;
+    }
+}
+
+.delete-btn {
+    background-color: red !important;
+    color: white !important;
+}
+
+.delete-btn:hover {
+    color: black !important;
+}

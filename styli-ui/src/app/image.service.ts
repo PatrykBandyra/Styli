@@ -23,10 +23,14 @@ export class ImageService {
                 })], {type: 'application/json'},
             ),
         );
-        return this.http.post<any>(ImageService.BASE_URL, form);
+        return this.http.post<HttpResponse<void>>(ImageService.BASE_URL, form);
     }
 
     getImages(page: number, size: number): Observable<ImagesResponse> {
         return this.http.get<ImagesResponse>(`${ImageService.BASE_URL}?page=${page}&size=${size}`);
+    }
+
+    deleteImage(id: number): Observable<HttpResponse<void>> {
+        return this.http.delete<HttpResponse<void>>(`${ImageService.BASE_URL}?id=${id}`);
     }
 }
