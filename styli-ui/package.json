@@ -24,6 +24,7 @@
     "@angular/router": "^14.0.0",
     "luxon": "^3.0.4",
     "ngx-color-picker": "^13.0.0",
+    "ngx-infinite-scroll": "^14.0.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
@@ -33,6 +34,7 @@
     "@angular/cli": "~14.0.2",
     "@angular/compiler-cli": "^14.0.0",
     "@types/jasmine": "~4.0.0",
+    "@types/lodash": "^4.14.191",
     "@types/luxon": "^3.0.2",
     "jasmine-core": "~4.1.0",
     "karma": "~6.3.0",

@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {EffectService} from '../effect.service';
-import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {HttpErrorResponse} from '@angular/common/http';
 import {MatSelectChange} from '@angular/material/select';
 import {EffectType} from '../effectType';
 import {EffectResponse} from '../dto/effect.response';
@@ -25,6 +25,8 @@ export class EditorComponent implements OnInit {
     selectedEffect?: string;
     readonly EffectType = EffectType;
 
+    @Output() saveSuccessEvent = new EventEmitter<void>();
+
     ngOnInit(): void {
         this.getAvailableEffects();
     }
@@ -43,15 +45,16 @@ export class EditorComponent implements OnInit {
 
     onSaveClicked(): void {
         this.imageService.uploadImage(
-            this.file!!
+            this.file!!,
         ).subscribe({
             next: () => {
-                this.snackBar.open("Image saved successfully", "Close", {duration: 3_000})
+                this.saveSuccessEvent.emit();
+                this.snackBar.open('Image saved successfully', 'Close', {duration: 3_000});
             },
             error: () => {
-                this.snackBar.open("Error occurred while saving an image", "Close", {duration: 3_000})
-            }
-        })
+                this.snackBar.open('Error occurred while saving an image', 'Close', {duration: 3_000});
+            },
+        });
     }
 
     private getAvailableEffects(): void {

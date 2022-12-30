@@ -25,6 +25,9 @@ import {CartoonizeComponent} from './effects/cartoonize/cartoonize.component';
 import {BackgroundSwapComponent} from './effects/background-swap/background-swap.component';
 import {ColorPickerModule} from 'ngx-color-picker';
 import {ColorizeComponent} from './effects/colorize/colorize.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
     declarations: [
@@ -54,6 +57,9 @@ import {ColorizeComponent} from './effects/colorize/colorize.component';
         MatSnackBarModule,
         MatSelectModule,
         ColorPickerModule,
+        MatSidenavModule,
+        InfiniteScrollModule,
+        MatProgressSpinnerModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},

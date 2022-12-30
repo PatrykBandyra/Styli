@@ -1,0 +1,13 @@
+.gallery {
+    &__container {
+        display: grid;
+        margin-top: 2rem;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    &__item img {
+        width:  60rem;
+        height: 60rem;
+        object-fit: cover;
+    }
+}

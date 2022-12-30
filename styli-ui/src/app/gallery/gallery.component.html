@@ -1,1 +1,14 @@
-<p>gallery works!</p>
+<div class="gallery__container">
+    <div *ngFor="let image of images$ | async" class="gallery__item">
+        <img [src]="image.image" [alt]="'Gallery image'"/>
+    </div>
+</div>
+
+<div
+    infinite-scroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="1000"
+    (scrolled)="onScroll()">
+</div>
+
+<mat-progress-spinner *ngIf="!finished" [color]="'primary'" [mode]="'indeterminate'"></mat-progress-spinner>

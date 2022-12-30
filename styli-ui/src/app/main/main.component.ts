@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../auth.service";
 import {Router} from "@angular/router";
+import {Subject} from 'rxjs';
 
 @Component({
     selector: 'app-main',
@@ -17,6 +18,7 @@ export class MainComponent implements OnInit {
 
     text: string = '';
     isLoggedIn?: boolean;
+    saveSuccess = new Subject<void>()
 
     ngOnInit(): void {
         this.isLoggedIn = this.authService.isLoggedIn();
@@ -33,5 +35,9 @@ export class MainComponent implements OnInit {
         console.log('Log out');
         this.authService.logOut();
         this.isLoggedIn = this.authService.isLoggedIn();
+    }
+
+    handleSaveSuccess(): void {
+        this.saveSuccess.next();
     }
 }

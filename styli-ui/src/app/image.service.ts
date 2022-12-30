@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import ImagesResponse from './dto/images.response';
 
 @Injectable({
     providedIn: 'root',
@@ -25,7 +26,7 @@ export class ImageService {
         return this.http.post<any>(ImageService.BASE_URL, form);
     }
 
-    // getImages(page: number, size: number) {
-    //     this.http.get<>
-    // }
+    getImages(page: number, size: number): Observable<ImagesResponse> {
+        return this.http.get<ImagesResponse>(`${ImageService.BASE_URL}?page=${page}&size=${size}`);
+    }
 }

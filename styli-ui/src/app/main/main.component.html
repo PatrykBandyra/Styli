@@ -18,8 +18,8 @@
 
 <main class="main">
     <div *ngIf="isLoggedIn; else mainNotLoggedIn">
-        <app-editor></app-editor>
-        <app-gallery></app-gallery>
+        <app-editor (saveSuccessEvent)="handleSaveSuccess()" ></app-editor>
+        <app-gallery [saveSuccess]="saveSuccess.asObservable()"></app-gallery>
     </div>
     <ng-template #mainNotLoggedIn>
         <div>
